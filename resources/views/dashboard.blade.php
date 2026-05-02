@@ -1,3 +1,5 @@
+ @extends('layouts.app')
+ @section('content')
  <div class="app-content-header">
      <!--begin::Container-->
      <div class="container-fluid">
@@ -432,3 +434,5 @@
      </div>
      <!--end::Container-->
  </div>
+
+ @endsection
