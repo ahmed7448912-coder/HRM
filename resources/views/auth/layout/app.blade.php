@@ -27,7 +27,7 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
-    <link rel="preload" href="../css/adminlte.css" as="style" />
+    <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->
@@ -43,7 +43,7 @@
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link
         rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css"
+        href="{{'https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/styles/overlayscrollbars.min.css'}}"
         crossorigin="anonymous" />
     <!--end::Third Party Plugin(OverlayScrollbars)-->
 
@@ -55,7 +55,7 @@
     <!--end::Third Party Plugin(Bootstrap Icons)-->
 
     <!--begin::Required Plugin(AdminLTE)-->
-    <link rel="stylesheet" href="../css/adminlte.css" />
+    <link rel="stylesheet" href="{{asset('assets/css/adminlte.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
 </head>
 <!--end::Head-->

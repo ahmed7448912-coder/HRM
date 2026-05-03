@@ -4,7 +4,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>HRM v4 | Dashboard</title>
+    <title>HRM | Dashboard</title>
 
     <!--begin::Accessibility Meta Tags-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
@@ -56,6 +56,7 @@
 
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-sidebar.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
 
     <!-- apexcharts -->
