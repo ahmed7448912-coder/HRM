@@ -12,27 +12,27 @@
             <div class="sidebar-search-container">
                 <input class="m4-search" placeholder="Search employees..." />
             </div>
-            
+
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
                 <!-- MAIN SECTION -->
                 <div class="m4-group-label">MAIN</div>
-                
+
                 <li class="nav-item">
-                    <a href="./index.html" class="m4-nav-link active">
+                    <a href="{{ route('admin.dashboard') }}" class="m4-nav-link active">
                         <i class="bi bi-grid-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a href="./index2.html" class="m4-nav-link">
                         <i class="bi bi-people-fill"></i>
                         <span>Employees</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
-                    <a href="./index3.html" class="m4-nav-link">
+                    <a href="{{ route('departments.index') }}" class="nav-link {{ request()->routeIs('departments.*') ? 'active' : '' }}">
                         <i class="bi bi-building"></i>
                         <span>Departments</span>
                     </a>
@@ -47,14 +47,14 @@
 
                 <!-- FINANCE SECTION -->
                 <div class="m4-group-label m4-mt-3">FINANCE</div>
-                
+
                 <li class="nav-item">
                     <a href="./widgets/small-box.html" class="m4-nav-link">
                         <i class="bi bi-hourglass-split"></i>
                         <span>Leave</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a href="./widgets/info-box.html" class="m4-nav-link">
                         <i class="bi bi-cash-stack"></i>
@@ -64,14 +64,14 @@
 
                 <!-- GROWTH SECTION -->
                 <div class="m4-group-label m4-mt-3">GROWTH</div>
-                
+
                 <li class="nav-item">
                     <a href="./widgets/cards.html" class="m4-nav-link">
                         <i class="bi bi-graph-up-arrow"></i>
                         <span>Performance</span>
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a href="./layout/unfixed-sidebar.html" class="m4-nav-link">
                         <i class="bi bi-file-earmark-bar-graph-fill"></i>

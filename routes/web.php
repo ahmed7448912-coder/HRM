@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
+    Route::resource('departments', DepartmentController::class);
 });
 
 Route::get('/admin/dashboard', function () {
