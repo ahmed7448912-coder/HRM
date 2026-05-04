@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Jobs;
+
+use App\Mail\LeaveStatusMail;
+use App\Models\Leave;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Queue\Queueable;
+use Illuminate\Support\Facades\Mail;
+
+class SendLeaveStatusMailJob implements ShouldQueue
+{
+    use Queueable;
+
+    public $leave;
+    public function __construct(Leave $leave)
+    {
+        $this->leave = $leave;
+    }
+
+
+    public function handle()
+    {
+        Mail::to($this->leave->employee->email)
+            ->send(new LeaveStatusMail($this->leave));
+    }
+}

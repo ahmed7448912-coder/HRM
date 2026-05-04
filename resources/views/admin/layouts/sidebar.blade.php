@@ -25,7 +25,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="./index2.html" class="m4-nav-link">
+                    <a href="{{ route('employees.index') }}" class="nav-link {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill"></i>
                         <span>Employees</span>
                     </a>
@@ -39,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="./generate/theme.html" class="m4-nav-link">
+                    <a href="{{ route('attendances.index') }}" class="nav-link {{ request()->routeIs('attendances.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-check-fill"></i>
                         <span>Attendance</span>
                     </a>
@@ -49,14 +49,14 @@
                 <div class="m4-group-label m4-mt-3">FINANCE</div>
 
                 <li class="nav-item">
-                    <a href="./widgets/small-box.html" class="m4-nav-link">
+                    <a href="{{ route('leave.index') }}" class="nav-link {{ request()->routeIs('leave.*') ? 'active' : '' }}">
                         <i class="bi bi-hourglass-split"></i>
                         <span>Leave</span>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="./widgets/info-box.html" class="m4-nav-link">
+                    <a href="" class="m4-nav-link">
                         <i class="bi bi-cash-stack"></i>
                         <span>Payroll</span>
                     </a>

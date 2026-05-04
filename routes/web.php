@@ -1,22 +1,24 @@
 <?php
 
+use App\Http\Controllers\admin\AttendanceController;
 use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\admin\EmployeeController;
+use App\Http\Controllers\admin\LeaveController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', fn() => view('welcome'));
 
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
-    Route::resource('departments', DepartmentController::class);
-    Route::resource('employees', EmployeeController::class);
-});
+    // Dashboard
+    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
+    // HR Modules
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('departments', DepartmentController::class);
+    Route::resource('attendances', AttendanceController::class);
+    Route::resource('leave', LeaveController::class);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -25,6 +27,5 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
-
 
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
