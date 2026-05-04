@@ -1,5 +1,18 @@
 @extends('admin.layouts.app')
 
+@push('styles')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <style>
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            padding: 0;
+            margin-left: 0;
+        }
+        .dataTables_wrapper .dataTables_filter {
+            margin-bottom: 1rem;
+        }
+    </style>
+@endpush
+
 @section('content')
 <!--begin::App Content Header-->
 <div class="app-content-header">
@@ -38,15 +51,15 @@
                             </a>
                         </div>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body">
                         @if(session('success'))
-                            <div class="alert alert-success m-3">
+                            <div class="alert alert-success">
                                 {{ session('success') }}
                             </div>
                         @endif
 
                         <div class="table-responsive">
-                            <table class="table table-striped align-middle mb-0">
+                            <table class="table table-striped align-middle mb-0" id="departments-table" data-url="{{ route('departments.index') }}">
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
@@ -57,44 +70,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($departments as $department)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td><strong>{{ $department->name }}</strong></td>
-                                        <td><span class="badge text-bg-info">{{ $department->code }}</span></td>
-                                        <td class="text-muted text-sm">{{ Str::limit($department->description, 50) }}</td>
-                                        <td class="text-center">
-                                            <div class="btn-group">
-                                                <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-sm btn-outline-warning">
-                                                    <i class="bi bi-pencil"></i>
-                                                </a>
-
-                                                <form action="{{ route('departments.destroy', $department->id) }}" method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('{{ __('Are you sure you want to delete this department?') }}')">
-                                                        <i class="bi bi-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="5" class="text-center py-4 text-muted">
-                                            <i class="bi bi-info-circle me-1"></i> {{ __('No departments found.') }}
-                                        </td>
-                                    </tr>
-                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    @if($departments->hasPages())
-                    <div class="card-footer clearfix">
-                        {{ $departments->links('pagination::bootstrap-5') }}
-                    </div>
-                    @endif
                 </div>
             </div>
         </div>
@@ -102,4 +81,11 @@
     <!--end::Container-->
 </div>
 <!--end::App Content-->
-@endsection
+@endsection
+
+@push('scripts')
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('assets/js/admin/departments.js') }}"></script>
+@endpush

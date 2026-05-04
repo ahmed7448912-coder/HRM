@@ -20,7 +20,7 @@
 
                     <!-- Email Address -->
                     <div class="input-group mb-1">
-                        <input type="email" name="email" class="form-control" placeholder="Email" :value="old('email')" required autofocus autocomplete="username" />
+                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="username" />
                         <div class="input-group-text">
                             <span class="bi bi-envelope"></span>
                         </div>

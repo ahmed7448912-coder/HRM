@@ -5,14 +5,24 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class DepartmentController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $departments = Department::latest()->paginate(10);
+        if ($request->ajax()) {
+            $query = Department::latest();
 
-        return view('admin.departments.index', compact('departments'));
+            return DataTables::of($query)
+                ->addIndexColumn()
+                ->addColumn('action', 'admin.departments._actions')
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.departments.index');
     }
 
     public function create()
