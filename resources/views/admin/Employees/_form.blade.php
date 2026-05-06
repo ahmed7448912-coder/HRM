@@ -1,4 +1,23 @@
 <div class="row">
+    <div class="col-md-12">
+        <div class="mb-3">
+            <label class="form-label">{{ __('Profile Image') }} <small class="text-muted">(Optional)</small></label>
+            <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/jpeg,image/png,image/jpg">
+            <small class="form-text text-muted">Allowed formats: JPG, JPEG, PNG. Max size: 2MB.</small>
+            @error('image')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+            @if(isset($employee) && $employee->image)
+                <div class="mt-2">
+                    <label class="form-label d-block text-muted" style="font-size: 0.8rem;">Current Image</label>
+                    <img src="{{ asset('storage/' . $employee->image) }}" class="img-thumbnail rounded shadow-sm" width="80" height="80" style="object-fit: cover;" alt="Current Image">
+                </div>
+            @endif
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-6">
         <div class="mb-3">
             <label class="form-label">{{ __('Name') }}</label>

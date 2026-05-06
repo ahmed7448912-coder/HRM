@@ -26,7 +26,7 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ __('Add New Employee') }}</h3>
                     </div>
-                    <form action="{{ route('employees.store') }}" method="POST">
+                    <form action="{{ route('employees.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-body">
                             @include('admin.employees._form')

@@ -22,8 +22,9 @@ class LeaveObserver
     {
         // only run when status changes
         if ($leave->isDirty('status')) {
-
-            dispatch(new SendLeaveStatusMailJob($leave));
+            if ($leave->employee && $leave->employee->email) {
+                dispatch(new SendLeaveStatusMailJob($leave));
+            }
         }
     }
 

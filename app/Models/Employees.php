@@ -14,6 +14,7 @@ class Employees extends Model
         'department_id',
         'salary',
         'joining_date',
+        'image',
     ];
 
     public function department()

@@ -23,11 +23,12 @@ class LeaveRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'employee_id' => 'required|exists:employees,id',
-            'type' => 'required|string|max:100',
-            'from_date' => 'required|date',
-            'to_date' => 'required|date|after_or_equal:from_date',
+            'employee_id' => 'sometimes|required|exists:employees,id',
+            'type' => 'sometimes|required|string|max:100',
+            'from_date' => 'sometimes|required|date',
+            'to_date' => 'sometimes|required|date|after_or_equal:from_date',
             'reason' => 'nullable|string',
+            'status' => 'sometimes|required|in:pending,approved,rejected',
         ];
     }
 }

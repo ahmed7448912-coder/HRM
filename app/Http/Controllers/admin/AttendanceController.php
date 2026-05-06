@@ -6,14 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\AttendanceRequest;
 use App\Models\Attendance;
 use App\Models\Employees;
+use App\Services\AttendanceService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class AttendanceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $service;
+
+    public function __construct(AttendanceService $service)
+    {
+        $this->service = $service;
+    }
+
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -22,8 +27,12 @@ class AttendanceController extends Controller
             return DataTables::of($attendance)
                 ->addIndexColumn()
                 ->addColumn('employee', fn($row) => $row->employee->name ?? '-')
+                ->addColumn('status', function($row) {
+                    $badgeClass = $row->status == 'present' ? 'bg-success' : 'bg-danger';
+                    return '<span class="badge ' . $badgeClass . '">' . ucfirst($row->status) . '</span>';
+                })
                 ->addColumn('actions', 'admin.attendances._actions')
-                ->rawColumns(['actions'])
+                ->rawColumns(['status', 'actions'])
                 ->make(true);
         }
 
@@ -44,19 +53,9 @@ class AttendanceController extends Controller
      */
     public function store(AttendanceRequest $request)
     {
-        Attendance::updateOrCreate(
-            [
-                'employee_id' => $request->employee_id,
-                'date' => $request->date,
-            ],
-            [
-                'check_in' => $request->check_in,
-                'check_out' => $request->check_out,
-            ]
-        );
+        $this->service->mark($request->validated());
 
-        return redirect()->route('attendances.index')
-            ->with('success', 'Attendance saved successfully');
+        return redirect()->back()->with('success', 'Attendance saved');
     }
 
     /**

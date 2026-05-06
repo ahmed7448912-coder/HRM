@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Attendance;
 use App\Models\Leave;
+use App\Observers\AttendanceObserver;
 use App\Observers\LeaveObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Attendance::observe(AttendanceObserver::class);
         Leave::observe(LeaveObserver::class);
     }
 }

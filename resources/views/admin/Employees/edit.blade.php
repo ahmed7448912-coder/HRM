@@ -26,7 +26,7 @@
                     <div class="card-header">
                         <h3 class="card-title">{{ __('Edit Details') }}: {{ $employee->name }}</h3>
                     </div>
-                    <form action="{{ route('employees.update', $employee->id) }}" method="POST">
+                    <form action="{{ route('employees.update', $employee->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="card-body">

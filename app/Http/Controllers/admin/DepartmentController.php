@@ -5,11 +5,19 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DepartmentRequest;
 use App\Models\Department;
+use App\Services\DepartmentService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class DepartmentController extends Controller
 {
+
+    protected $service;
+
+    public function __construct(DepartmentService $service)
+    {
+        $this->service = $service;
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -17,8 +25,8 @@ class DepartmentController extends Controller
 
             return DataTables::of($query)
                 ->addIndexColumn()
-                ->addColumn('action', 'admin.departments._actions')
-                ->rawColumns(['action'])
+                ->addColumn('actions', 'admin.departments._actions')
+                ->rawColumns(['actions'])
                 ->make(true);
         }
 
@@ -32,11 +40,16 @@ class DepartmentController extends Controller
 
     public function store(DepartmentRequest $request)
     {
-        Department::create($request->validated());
+        $this->service->create($request->validated());
 
-        return redirect()
-            ->route('departments.index')
-            ->with('success', 'Department created successfully');
+        return redirect()->back()->with('success', 'Department created');
+    }
+
+    public function show(Department $department)
+    {
+        // Load the employees relationship if needed for the view
+        $department->load('employees');
+        return view('admin.departments.show', compact('department'));
     }
 
     public function edit(Department $department)
@@ -46,19 +59,15 @@ class DepartmentController extends Controller
 
     public function update(DepartmentRequest $request, Department $department)
     {
-        $department->update($request->validated());
+        $this->service->update($department, $request->validated());
 
-        return redirect()
-            ->route('departments.index')
-            ->with('success', 'Department updated successfully');
+        return redirect()->back()->with('success', 'Updated');
     }
 
     public function destroy(Department $department)
     {
-        $department->delete();
+        $this->service->delete($department);
 
-        return redirect()
-            ->route('departments.index')
-            ->with('success', 'Department deleted successfully');
+        return response()->json(['success' => true]);
     }
 }

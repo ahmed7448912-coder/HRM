@@ -6,24 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Department;
 use App\Models\Employees;
+use App\Services\EmployeeService;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
 class EmployeeController extends Controller
 {
+
+
+    protected $service;
+
+    public function __construct(EmployeeService $service)
+    {
+        $this->service = $service;
+    }
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $query = Employees::with('department')->select('employees.*');
-
-            return DataTables::of($query)
-                ->addIndexColumn()
-                ->addColumn('department', function ($row) {
-                    return $row->department->name ?? '-';
-                })
-                ->addColumn('actions', 'admin.employees._actions')
-                ->rawColumns(['actions'])
-                ->make(true);
+            return $this->service->getDatatable();
         }
 
         return view('admin.employees.index');
@@ -35,6 +35,7 @@ class EmployeeController extends Controller
     public function create()
     {
         $departments = Department::pluck('name', 'id');
+
         return view('admin.employees.create', compact('departments'));
     }
 
@@ -43,17 +44,20 @@ class EmployeeController extends Controller
      */
     public function store(EmployeeRequest $request)
     {
-        Employees::create($request->validated());
+        $this->service->create($request->validated());
 
-        return redirect()
-            ->route('employees.index')
-            ->with('success', 'Employee created successfully');
+        return redirect()->route('employees.index')
+            ->with('success', 'Employee created and welcome email sent!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {}
+    public function show(Employees $employee)
+    {
+        $employee->load('department');
+        return view('admin.employees.show', compact('employee'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -61,6 +65,7 @@ class EmployeeController extends Controller
     public function edit(Employees $employee)
     {
         $departments = Department::pluck('name', 'id');
+
         return view('admin.employees.edit', compact('employee', 'departments'));
     }
 
@@ -69,19 +74,20 @@ class EmployeeController extends Controller
      */
     public function update(EmployeeRequest $request, Employees $employee)
     {
-        $employee->update($request->validated());
+        $this->service->update($employee, $request->validated());
 
-        return redirect()
-            ->route('employees.index')
-            ->with('success', 'Employee updated successfully');
+        return redirect()->route('employees.index')
+            ->with('success', 'Updated');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Employees $employee)
     {
-        $employee->delete();
+        $this->service->delete($employee);
+
         return response()->json(['success' => true]);
     }
 }

@@ -1,30 +1,51 @@
-$(document).ready(function() {
+$(document).ready(function () {
     const tableId = '#departments-table';
+    
     if ($(tableId).length > 0) {
         $(tableId).DataTable({
             processing: true,
             serverSide: true,
-            ajax: $(tableId).data('url'),
+            ajax: '/admin/departments',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'name', name: 'name' },
-                { data: 'code', name: 'code', render: function(data) {
-                    return '<span class="badge text-bg-info">' + data + '</span>';
-                }},
-                { data: 'description', name: 'description', render: function(data) {
-                    if (data && data.length > 50) {
-                        return data.substring(0, 50) + '...';
-                    }
-                    return data || '';
-                }},
-                { data: 'action', name: 'action', orderable: false, searchable: false, className: 'text-center' }
-            ],
-            language: {
-                paginate: {
-                    previous: "<i class='bi bi-chevron-left'></i>",
-                    next: "<i class='bi bi-chevron-right'></i>"
-                }
-            }
+                { data: 'code', name: 'code' },
+                { data: 'description', name: 'description' },
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' }
+            ]
         });
     }
+
+    // Delete
+    $(document).on('click', '.deleteBtn', function () {
+        let id = $(this).data('id');
+        let url = '/admin/departments/' + id;
+
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "All employees in this department will be affected!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    data: {
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        Swal.fire('Deleted!', 'Department has been removed.', 'success');
+                        $(tableId).DataTable().ajax.reload();
+                    },
+                    error: function() {
+                        Swal.fire('Error!', 'Could not delete the department.', 'error');
+                    }
+                });
+            }
+        });
+    });
 });

@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('welcome'));
-
+// Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // Dashboard
     Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');

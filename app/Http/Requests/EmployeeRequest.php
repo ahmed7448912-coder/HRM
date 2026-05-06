@@ -25,6 +25,7 @@ class EmployeeRequest extends FormRequest
             'department_id' => 'required|exists:departments,id',
             'salary' => 'required|numeric|min:0',
             'joining_date' => 'required|date',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ];
     }
     public function messages(): array

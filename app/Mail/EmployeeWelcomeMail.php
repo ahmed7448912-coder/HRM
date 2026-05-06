@@ -2,7 +2,7 @@
 
 namespace App\Mail;
 
-use App\Models\Leave;
+use App\Models\Employees;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,14 +11,14 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class LeaveStatusMail extends Mailable
+class EmployeeWelcomeMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $leave;
-    public function __construct(Leave $leave)
+    public Employees $employee;
+    public function __construct(Employees $employee)
     {
-        $this->leave = $leave;
+        $this->employee = $employee;
     }
 
     /**
@@ -27,7 +27,7 @@ class LeaveStatusMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Leave Status Mail',
+            subject: 'Welcome to Company',
         );
     }
 
@@ -37,14 +37,8 @@ class LeaveStatusMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.emails.leave-status',
+            view: 'Emails.employee-welcome',
         );
-    }
-    //build email using build method
-    public function build()
-    {
-        return $this->subject('Leave Status Updated')
-            ->view('Emails.leave-status');
     }
 
     /**

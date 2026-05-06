@@ -26,9 +26,9 @@ class DepartmentRequest extends FormRequest
         $id = $this->route('department')?->id;
 
         return [
-            'name'        => ['required', 'string', 'max:255'],
-            'code'        => ['nullable', 'string', 'max:50', 'unique:departments,code,' . $id],
-            'description' => ['nullable', 'string'],
+            'name' => 'required|string|max:255|unique:departments,name,' . $id,
+
+            'status' => 'required|in:active,inactive',
         ];
     }
 }
