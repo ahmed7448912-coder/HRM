@@ -13,6 +13,7 @@ $(document).ready(function () {
             { data: 'absents',      name: 'absents' },
             { data: 'deductions',   name: 'deductions' },
             { data: 'net_salary',   name: 'net_salary' },
+            { data: 'actions',      name: 'actions', orderable: false, searchable: false },
         ]
     });
 

@@ -51,6 +51,7 @@
                         <th>Absents</th>
                         <th>Deductions</th>
                         <th>Net Salary</th>
+                        <th class="text-center">Actions</th>
                     </tr>
                 </thead>
             </table>

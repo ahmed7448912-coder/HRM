@@ -3,14 +3,27 @@
 namespace App\Services;
 
 use App\Jobs\SendPayrollMailJob;
-
 use App\Models\Attendance;
 use App\Models\Employees;
 use App\Models\Leave;
 use App\Models\Payroll;
+use Yajra\DataTables\Facades\DataTables;
 
 class PayrollService
 {
+    public function getDatatable()
+    {
+        $payrolls = Payroll::with('employee')->select('payrolls.*');
+
+        return DataTables::of($payrolls)
+            ->addIndexColumn()
+            ->addColumn('employee', fn($row) => $row->employee->name ?? '-')
+            ->addColumn('month', fn($row) => date('F Y', strtotime($row->month)))
+            ->addColumn('actions', 'admin.payroll._actions')
+            ->rawColumns(['actions'])
+            ->make(true);
+    }
+
     public function calculateForEmployee($employeeId, $month)
     {
         $employee = Employees::findOrFail($employeeId);
@@ -66,5 +79,21 @@ class PayrollService
         dispatch(new SendPayrollMailJob($payroll));
 
         return $payroll;
+    }
+
+    public function generateAll($month)
+    {
+        $employees = Employees::all();
+        foreach ($employees as $emp) {
+            $this->processPayroll($emp->id, $month);
+        }
+    }
+
+    public function update(Payroll $payroll, array $data)
+    {
+        $net_salary = $data['basic_salary'] - $data['deductions'] + $data['bonus'];
+        $data['net_salary'] = $net_salary;
+
+        return $payroll->update($data);
     }
 }
