@@ -9,10 +9,6 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <!--begin::Sidebar Menu-->
-            <div class="sidebar-search-container">
-                <input class="m4-search" placeholder="Search employees..." />
-            </div>
-
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
                 <!-- MAIN SECTION -->
                 <div class="m4-group-label">MAIN</div>
@@ -66,7 +62,7 @@
                 <div class="m4-group-label m4-mt-3">GROWTH</div>
 
                 <li class="nav-item">
-                    <a href="./widgets/cards.html" class="m4-nav-link">
+                    <a href="{{ route('performance.index') }}" class="nav-link {{ request()->routeIs('performance.*') ? 'active' : '' }}">
                         <i class="bi bi-graph-up-arrow"></i>
                         <span>Performance</span>
                     </a>
