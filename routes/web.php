@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AttendanceController;
 use App\Http\Controllers\admin\DepartmentController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\LeaveController;
+use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +19,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::resource('departments', DepartmentController::class);
     Route::resource('attendances', AttendanceController::class);
     Route::resource('leave', LeaveController::class);
+    Route::resource('payroll', PayrollController::class);
 });
 
 Route::middleware('auth')->group(function () {

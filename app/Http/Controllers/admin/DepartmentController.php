@@ -42,7 +42,7 @@ class DepartmentController extends Controller
     {
         $this->service->create($request->validated());
 
-        return redirect()->back()->with('success', 'Department created');
+        return redirect()->route('departments.index')->with('success', 'Department created successfully!');
     }
 
     public function show(Department $department)
@@ -61,7 +61,7 @@ class DepartmentController extends Controller
     {
         $this->service->update($department, $request->validated());
 
-        return redirect()->back()->with('success', 'Updated');
+        return redirect()->route('departments.index')->with('success', 'Department updated successfully!');
     }
 
     public function destroy(Department $department)

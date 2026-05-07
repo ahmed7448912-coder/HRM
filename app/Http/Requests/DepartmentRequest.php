@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class DepartmentRequest extends FormRequest
 {
@@ -26,9 +27,9 @@ class DepartmentRequest extends FormRequest
         $id = $this->route('department')?->id;
 
         return [
-            'name' => 'required|string|max:255|unique:departments,name,' . $id,
-
-            'status' => 'required|in:active,inactive',
+            'name' => ['required', 'string', 'max:255', Rule::unique('departments', 'name')->ignore($id)],
+            'code' => ['nullable', 'string', 'max:255', Rule::unique('departments', 'code')->ignore($id)],
+            'description' => 'nullable|string',
         ];
     }
 }

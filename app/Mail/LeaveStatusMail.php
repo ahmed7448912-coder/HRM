@@ -37,7 +37,7 @@ class LeaveStatusMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'admin.emails.leave-status',
+            view: 'Emails.leave-status',
         );
     }
     //build email using build method

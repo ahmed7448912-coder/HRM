@@ -39,45 +39,31 @@ class AttendanceController extends Controller
         return view('admin.attendances.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $employees = Employees::pluck('name', 'id');
         return view('admin.attendances.create', compact('employees'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(AttendanceRequest $request)
     {
         $this->service->mark($request->validated());
 
-        return redirect()->back()->with('success', 'Attendance saved');
+        return redirect()->route('attendances.index')->with('success', 'Attendance saved successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Attendance $attendance)
     {
-        //
+        $attendance->load('employee');
+        return view('admin.attendances.show', compact('attendance'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Attendance $attendance)
     {
         $employees = Employees::pluck('name', 'id');
         return view('admin.attendances.edit', compact('attendance', 'employees'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(AttendanceRequest $request, Attendance $attendance)
     {
         $attendance->update($request->validated());

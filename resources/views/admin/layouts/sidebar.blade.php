@@ -56,7 +56,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="" class="m4-nav-link">
+                    <a href="{{ route('payroll.index')}}" class="nav-link {{ request()->routeIs('payroll.index') ? 'active' : '' }}">
                         <i class="bi bi-cash-stack"></i>
                         <span>Payroll</span>
                     </a>
