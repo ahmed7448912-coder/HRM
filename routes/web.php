@@ -11,7 +11,14 @@ use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', fn() => view('app.home'));
+Route::get('/', fn() => view('app.home'))->name('home');
+//landing page routes
+Route::get('/about', fn() => view('app.about.about'))->name('about');
+Route::get('/contact', fn() => view('app.contact.contact'))->name('contact');
+Route::get('/features', fn() => view('app.pages.features'))->name('features');
+Route::get('/solutions', fn() => view('app.pages.solutions'))->name('solutions');
+Route::get('/pricing', fn() => view('app.pages.pricing'))->name('pricing');
+Route::get('/resources', fn() => view('app.pages.resources'))->name('resources');
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // Dashboard
@@ -26,6 +33,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::resource('performance', PerformanceController::class);
     Route::resource('reports', ReportController::class);
 });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

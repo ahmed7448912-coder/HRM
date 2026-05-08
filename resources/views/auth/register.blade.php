@@ -1,129 +1,59 @@
 @extends('auth.layout.app')
 
 @section('content')
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('assets/css/auth_register.css') }}">
 
-<body class="register-page bg-body-secondary">
-    <div class="register-box">
-        <div class="register-logo">
-            <a href="{{ url('/') }}"><b>HRM</b> Register</a>
-        </div>
-        <!-- /.register-logo -->
-        <div class="card">
-            <div class="card-body register-card-body">
-                <p class="register-box-msg">Register a new membership</p>
+<style>
+    .form-container h1, .overlay-container h1 { font-family: 'Syne', sans-serif; }
+    .form-container p, .form-container span, .overlay-container p, .btn-auth { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
 
-                <form method="POST" action="{{ route('register') }}">
-                    @csrf
-
-                    <!-- Name -->
-                    <div class="input-group mb-1">
-                        <input type="text" name="name" class="form-control" placeholder="Full Name" value="{{ old('name') }}" required autofocus autocomplete="name" />
-                        <div class="input-group-text">
-                            <span class="bi bi-person"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('name')" class="mb-3" />
-
-                    <!-- Email Address -->
-                    <div class="input-group mb-1">
-                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autocomplete="username" />
-                        <div class="input-group-text">
-                            <span class="bi bi-envelope"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('email')" class="mb-3" />
-
-                    <!-- Password -->
-                    <div class="input-group mb-1">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="new-password" />
-                        <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('password')" class="mb-3" />
-
-                    <!-- Confirm Password -->
-                    <div class="input-group mb-3">
-                        <input type="password" name="password_confirmation" class="form-control" placeholder="Confirm Password" required autocomplete="new-password" />
-                        <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('password_confirmation')" class="mb-3" />
-
-                    <!--begin::Row-->
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required />
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    I agree to the <a href="#">terms</a>
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">{{ __('Register') }}</button>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!--end::Row-->
-                </form>
-
-                <div class="social-auth-links text-center mb-3 d-grid gap-2">
-                    <p>- OR -</p>
-                    <a href="#" class="btn btn-danger">
-                        <i class="bi bi-google me-2"></i> Sign up using Google+
+<div class="auth-full-wrapper">
+    <div class="container-custom" id="container">
+        <div class="form-container">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
+                <div style="width:35px; height:35px; background:var(--auth-grad); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-weight:900; font-size:1.2rem;">P</div>
+                <span style="font-family:'Syne', sans-serif; font-weight:800; font-size:1.2rem; color:var(--auth-text); margin-bottom:0;">PeopleDesk</span>
+            </div>
+            <form method="POST" action="{{ route('register') }}" style="width:100%;">
+                @csrf
+                <h1>Create Account</h1>
+                <div class="social-container">
+                    <a href="#" style="width:auto; padding:0 20px; border-radius:20px; gap:10px;">
+                        <i class="bi bi-google"></i>
+                        <span style="font-size:12px; font-weight:700;">Sign up with Google</span>
                     </a>
                 </div>
-                <!-- /.social-auth-links -->
+                <span>or use your email for registration</span>
 
-                <p class="mb-0">
-                    <a href="{{ route('login') }}" class="text-center"> {{ __('Already registered?') }} </a>
-                </p>
-            </div>
-            <!-- /.register-card-body -->
+                <input type="text" name="name" class="form-input" placeholder="Name" value="{{ old('name') }}" required autofocus autocomplete="name" />
+                @error('name') <span class="error-msg">{{ $message }}</span> @enderror
+
+                <input type="email" name="email" class="form-input" placeholder="Email" value="{{ old('email') }}" required autocomplete="username" />
+                @error('email') <span class="error-msg">{{ $message }}</span> @enderror
+
+                <input type="password" name="password" class="form-input" placeholder="Password" required autocomplete="new-password" />
+                @error('password') <span class="error-msg">{{ $message }}</span> @enderror
+
+                <input type="password" name="password_confirmation" class="form-input" placeholder="Confirm Password" required autocomplete="new-password" />
+
+                <button type="submit" class="btn-auth">Sign Up</button>
+            </form>
+        </div>
+
+        <!-- OVERLAY SIDE (LEFT) -->
+        <div class="overlay-container">
+            <h1>Welcome Back!</h1>
+            <p>To keep connected with us please login with your personal info</p>
+            <a href="{{ route('login') }}" style="text-decoration:none;">
+                <button class="btn-auth btn-ghost">Sign In</button>
+            </a>
         </div>
     </div>
-    <!-- /.register-box -->
+</div>
 
-    <!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
-    <!--end::Third Party Plugin(OverlayScrollbars)-->
-    <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(popperjs for Bootstrap 5)-->
-    <!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(Bootstrap 5)-->
-    <!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{ asset('assets/js/adminlte.js') }}"></script>
-    <!--end::Required Plugin(AdminLTE)-->
-    <!--begin::OverlayScrollbars Configure-->
-    <script>
-        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-        const Default = {
-            scrollbarTheme: 'os-theme-light',
-            scrollbarAutoHide: 'leave',
-            scrollbarClickScroll: true,
-        };
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-            const isMobile = window.innerWidth <= 992;
-
-            if (sidebarWrapper && OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined && !isMobile) {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
-        });
-    </script>
-    <!--end::OverlayScrollbars Configure-->
-</body>
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"></script>
 @endsection

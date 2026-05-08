@@ -1,132 +1,65 @@
 @extends('auth.layout.app')
 
 @section('content')
+<!-- FONTS -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('assets/css/auth_login.css') }}">
 
-<body class="login-page bg-body-secondary">
-    <div class="login-box">
-        <div class="login-logo">
-            <a href="{{ url('/') }}"><b>HRM</b> Login</a>
-        </div>
-        <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+<style>
+    .form-container h1, .overlay-container h1 { font-family: 'Syne', sans-serif; }
+    .form-container p, .form-container span, .overlay-container p, .btn-auth { font-family: 'Plus Jakarta Sans', sans-serif; }
+</style>
 
-                <!-- Session Status -->
-                <x-auth-session-status class="mb-4" :status="session('status')" />
-
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
-
-                    <!-- Email Address -->
-                    <div class="input-group mb-1">
-                        <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="username" />
-                        <div class="input-group-text">
-                            <span class="bi bi-envelope"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('email')" class="mb-3" />
-
-                    <!-- Password -->
-                    <div class="input-group mb-1">
-                        <input type="password" name="password" class="form-control" placeholder="Password" required autocomplete="current-password" />
-                        <div class="input-group-text">
-                            <span class="bi bi-lock-fill"></span>
-                        </div>
-                    </div>
-                    <x-input-error :messages="$errors->get('password')" class="mb-3" />
-
-                    <!--begin::Row-->
-                    <div class="row">
-                        <div class="col-8">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="remember" id="remember_me" />
-                                <label class="form-check-label" for="remember_me">
-                                    {{ __('Remember me') }}
-                                </label>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <div class="d-grid gap-2">
-                                <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
-                            </div>
-                        </div>
-                        <!-- /.col -->
-                    </div>
-                    <!--end::Row-->
-                </form>
-
-                <div class="social-auth-links text-center mb-3 d-grid gap-2">
-                    <p>- OR -</p>
-
-                    <a href="#" class="btn btn-danger">
-                        <i class="bi bi-google me-2"></i> Sign in using Google+
+<div class="auth-full-wrapper">
+    <div class="container-custom" id="container">
+        <div class="form-container">
+            <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
+                <div style="width:35px; height:35px; background:var(--auth-grad); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; font-weight:900; font-size:1.2rem;">P</div>
+                <span style="font-family:'Syne', sans-serif; font-weight:800; font-size:1.2rem; color:var(--auth-text); margin-bottom:0;">PeopleDesk</span>
+            </div>
+            <form method="POST" action="{{ route('login') }}" style="width:100%;">
+                @csrf
+                <h1>Sign in</h1>
+                <div class="social-container">
+                    <a href="#" style="width:auto; padding:0 20px; border-radius:20px; gap:10px;">
+                        <i class="bi bi-google"></i>
+                        <span style="font-size:12px; font-weight:700;">Login with Google</span>
                     </a>
                 </div>
-                <!-- /.social-auth-links -->
+                <span>or use your account</span>
+                
+                @if (session('status'))
+                    <div style="color:#2ecc71; font-size:12px; margin-bottom:10px;">{{ session('status') }}</div>
+                @endif
 
-                <p class="mb-1">
-                    @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
-                    </a>
-                    @endif
-                </p>
-                <p class="mb-0">
-                    @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="text-center">
-                        {{ __('Register a new membership') }}
-                    </a>
-                    @endif
-                </p>
-            </div>
-            <!-- /.login-card-body -->
+                <input type="email" name="email" class="form-input" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="username" />
+                @error('email') <span class="error-msg">{{ $message }}</span> @enderror
+
+                <input type="password" name="password" class="form-input" placeholder="Password" required autocomplete="current-password" />
+                @error('password') <span class="error-msg">{{ $message }}</span> @enderror
+
+                <a href="{{ route('password.request') }}" class="forgot">Forgot your password?</a>
+                
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
+                    <input type="checkbox" name="remember" id="remember_me" style="width:auto;">
+                    <label for="remember_me" style="font-size:12px; color:#666;">Remember me</label>
+                </div>
+
+                <button type="submit" class="btn-auth">Sign In</button>
+            </form>
+        </div>
+
+        <!-- OVERLAY SIDE (RIGHT) -->
+        <div class="overlay-container">
+            <h1>Hello, Friend!</h1>
+            <p>Enter your personal details and start journey with us</p>
+            <a href="{{ route('register') }}" style="text-decoration:none;">
+                <button class="btn-auth btn-ghost">Sign Up</button>
+            </a>
         </div>
     </div>
-    <!-- /.login-box -->
+</div>
 
-    <!--begin::Third Party Plugin(OverlayScrollbars)-->
-    <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.11.0/browser/overlayscrollbars.browser.es6.min.js" crossorigin="anonymous"></script>
-    <!--end::Third Party Plugin(OverlayScrollbars)-->
-    <!--begin::Required Plugin(popperjs for Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(popperjs for Bootstrap 5)-->
-    <!--begin::Required Plugin(Bootstrap 5)-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <!--end::Required Plugin(Bootstrap 5)-->
-    <!--begin::Required Plugin(AdminLTE)-->
-    <script src="{{ asset('assets/js/adminlte.js') }}"></script>
-    <!--end::Required Plugin(AdminLTE)-->
-    <!--begin::OverlayScrollbars Configure-->
-    <script>
-        const SELECTOR_SIDEBAR_WRAPPER = '.sidebar-wrapper';
-        const Default = {
-            scrollbarTheme: 'os-theme-light',
-            scrollbarAutoHide: 'leave',
-            scrollbarClickScroll: true,
-        };
-        document.addEventListener('DOMContentLoaded', function() {
-            const sidebarWrapper = document.querySelector(SELECTOR_SIDEBAR_WRAPPER);
-
-            // Disable OverlayScrollbars on mobile devices to prevent touch interference
-            const isMobile = window.innerWidth <= 992;
-
-            if (
-                sidebarWrapper &&
-                OverlayScrollbarsGlobal?.OverlayScrollbars !== undefined &&
-                !isMobile
-            ) {
-                OverlayScrollbarsGlobal.OverlayScrollbars(sidebarWrapper, {
-                    scrollbars: {
-                        theme: Default.scrollbarTheme,
-                        autoHide: Default.scrollbarAutoHide,
-                        clickScroll: Default.scrollbarClickScroll,
-                    },
-                });
-            }
-        });
-    </script>
-    <!--end::OverlayScrollbars Configure-->
-</body>
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.min.js"></script>
 @endsection
