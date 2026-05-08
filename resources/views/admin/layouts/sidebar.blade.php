@@ -69,10 +69,9 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="./layout/unfixed-sidebar.html" class="m4-nav-link">
+                    <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
                         <i class="bi bi-file-earmark-bar-graph-fill"></i>
                         <span>Reports</span>
-                        <span class="ms-auto badge rounded-pill bg-danger" style="font-size: 10px;">6</span>
                     </a>
                 </li>
             </ul>

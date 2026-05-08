@@ -1,3 +1,4 @@
+/* Professional Avatar Initials */
 .avatar-circle {
     width: 35px;
     height: 35px;
@@ -9,4 +10,164 @@
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
+}
+
+/* Dark Mode Deep Customization */
+:root {
+    --bg-dark-main: #0b1437;
+    --card-dark-bg: #111c44;
+    --card-dark-hover: #1b254b;
+    --text-primary-dark: #ffffff;
+    --text-secondary-dark: #a3b1cc;
+    --border-color-dark: #1b254b;
+    --accent-red: #ff4d4d;
+}
+
+/* Base Body Theme */
+body.dark-mode {
+    background-color: var(--bg-dark-main) !important;
+    color: var(--text-primary-dark) !important;
+}
+
+body.dark-mode .app-header, 
+body.dark-mode .app-main, 
+body.dark-mode .app-content {
+    background-color: var(--bg-dark-main) !important;
+}
+
+/* Global Card Styling for Dark Mode */
+body.dark-mode .card {
+    background-color: var(--card-dark-bg) !important;
+    color: var(--text-primary-dark) !important;
+    border: 1px solid var(--border-color-dark) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+body.dark-mode .text-dark, 
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6 {
+    color: #fff !important;
+}
+
+body.dark-mode .text-muted {
+    color: var(--text-secondary-dark) !important;
+}
+
+/* Button & Dropdown Theming */
+body.dark-mode .btn-light {
+    background-color: #1b254b !important;
+    border-color: #2d3748 !important;
+    color: #fff !important;
+}
+
+body.dark-mode .btn-outline-danger {
+    border-color: var(--accent-red) !important;
+    color: var(--accent-red) !important;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--card-dark-bg) !important;
+    border: 1px solid var(--border-color-dark) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+}
+
+body.dark-mode .dropdown-item {
+    color: #fff !important;
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--card-dark-hover) !important;
+}
+
+/* BEAUTIFUL VACANCY CARDS */
+.vacancy-card {
+    background: #ffffff;
+    border: 1px solid #f0f2f5 !important;
+    position: relative;
+    overflow: hidden;
+}
+
+.vacancy-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+    border-color: #ff4d4d !important;
+}
+
+body.dark-mode .vacancy-card {
+    background: linear-gradient(145deg, #111c44, #1b254b) !important;
+    border: 1px solid #2d3748 !important;
+}
+
+body.dark-mode .vacancy-card:hover {
+    border-color: var(--accent-red) !important;
+    background: #1b254b !important;
+}
+
+/* Progress Bars in Dark Mode */
+body.dark-mode .progress {
+    background-color: rgba(255,255,255,0.05) !important;
+}
+
+/* Timeline & Backgrounds */
+body.dark-mode .bg-light {
+    background-color: rgba(27, 37, 75, 0.5) !important;
+}
+
+body.dark-mode .timeline-line {
+    background: #1b254b !important;
+}
+
+body.dark-mode .timeline-dot {
+    border: 2px solid #0b1437;
+}
+
+/* Header Navbar Fix */
+body.dark-mode .app-header.navbar {
+    background-color: var(--bg-dark-main) !important;
+    border-bottom: 1px solid var(--border-color-dark) !important;
+}
+
+body.dark-mode .nav-link {
+    color: #fff !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    cursor: pointer;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #fff5f5;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: #1b254b;
+}
+
+.theme-toggle i {
+    font-size: 1.3rem;
+}
+
+.theme-toggle .bi-moon-fill { color: #ff4d4d; }
+.theme-toggle .bi-sun-fill { color: #fff; }
+
+.theme-toggle:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* Custom Scrollbar for Dark Mode */
+body.dark-mode .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0b1437;
+}
+
+body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #2d3748;
 }

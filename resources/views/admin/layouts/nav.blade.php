@@ -11,7 +11,14 @@
         </ul>
 
         <!-- Right Navbar -->
-        <ul class="navbar-nav ms-auto">
+        <ul class="navbar-nav ms-auto align-items-center">
+            
+            <!-- Theme Toggle -->
+            <li class="nav-item me-2">
+                <div class="theme-toggle" id="theme-toggle" title="Toggle Dark Mode">
+                    <i class="bi bi-moon-fill" id="theme-icon"></i>
+                </div>
+            </li>
 
             <!-- User Menu -->
             <li class="nav-item dropdown user-menu">

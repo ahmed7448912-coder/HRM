@@ -25,9 +25,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!--end::Primary Meta Tags-->
 
+    <!-- Apply theme immediately to prevent flashing -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+            document.addEventListener('DOMContentLoaded', () => document.body.classList.add('dark-mode'));
+        }
+    </script>
+
     <!--begin::Accessibility Features-->
-    <!-- Skip links will be dynamically added by accessibility.js -->
-    <meta name="supported-color-schemes" content="light dark" />
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
     <!--end::Accessibility Features-->
@@ -120,6 +126,8 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <script src="{{ asset('assets/js/adminlte.js') }}"></script>
     <!--end::Required Plugin(AdminLTE)-->
+
+    <script src="{{ asset('assets/js/theme-toggle.js') }}"></script>
 
     <!--begin::OverlayScrollbars Configure-->
     <script>

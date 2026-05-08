@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\admin\AttendanceController;
 use App\Http\Controllers\admin\DepartmentController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\EmployeeController;
 use App\Http\Controllers\admin\LeaveController;
 use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\admin\PerformanceController;
+use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,7 +15,7 @@ Route::get('/', fn() => view('welcome'));
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // Dashboard
-    Route::get('/dashboard', fn() => view('admin.dashboard'))->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
     // HR Modules
     Route::resource('employees', EmployeeController::class);
@@ -22,6 +24,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::resource('leave', LeaveController::class);
     Route::resource('payroll', PayrollController::class);
     Route::resource('performance', PerformanceController::class);
+    Route::resource('reports', ReportController::class);
 });
 
 Route::middleware('auth')->group(function () {
