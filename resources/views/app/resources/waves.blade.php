@@ -1,26 +1,25 @@
 <!-- FLOWING WAVE SECTION -->
 <section class="wave-section">
-    <div class="container">
-        <h2 class="hero-h1" style="color:white; font-size:3rem; margin-bottom:2rem;">Available On The <br>Shopify App Store</h2>
-        <div style="display:flex; justify-content:center; gap:5rem; flex-wrap:wrap; opacity:0.8;">
-            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-                <div style="font-size:3rem;">🛍️</div>
-                <div style="font-weight:800;">PEOPLEDESK FEED</div>
+    <div class="container" style="text-align:center;">
+        <h2 class="hero-h1" style="color:white; font-size:2.2rem; margin-bottom:2.5rem; letter-spacing:-1px;">Available On The <br>Shopify App Store</h2>
+        <div style="display:flex; justify-content:center; gap:4rem; flex-wrap:wrap; opacity:0.9;">
+            <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div style="font-size:2.2rem;">🛍️</div>
+                <div style="font-weight:800; font-size:0.85rem; letter-spacing:1px;">PEOPLEDESK FEED</div>
             </div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-                <div style="font-size:3rem;">📱</div>
-                <div style="font-weight:800;">OPTIMA TIKTOK</div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div style="font-size:2.2rem;">📱</div>
+                <div style="font-weight:800; font-size:0.85rem; letter-spacing:1px;">OPTIMA TIKTOK</div>
             </div>
-            <div style="display:flex; flex-direction:column; align-items:center; gap:10px;">
-                <div style="font-size:3rem;">📈</div>
-                <div style="font-weight:800;">PEOPLEDESK GA4</div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:12px;">
+                <div style="font-size:2.2rem;">📈</div>
+                <div style="font-weight:800; font-size:0.85rem; letter-spacing:1px;">PEOPLEDESK GA4</div>
             </div>
         </div>
-        <div style="margin-top:40px; display:flex; justify-content:center; gap:8px;">
-            <div style="width:10px;height:10px;background:white;border-radius:50%;"></div>
-            <div style="width:10px;height:10px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
-            <div style="width:10px;height:10px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
-            <div style="width:10px;height:10px;background:rgba(255,255,255,0.3);border-radius:50%;"></div>
+        <div style="margin-top:50px; display:flex; justify-content:center; gap:12px;">
+            <div style="width:12px; height:12px; background:white; border-radius:50%; box-shadow: 0 0 15px rgba(255,255,255,0.5);"></div>
+            <div style="width:12px; height:12px; background:rgba(255,255,255,0.3); border-radius:50%; border: 1px solid rgba(255,255,255,0.2);"></div>
+            <div style="width:12px; height:12px; background:rgba(255,255,255,0.3); border-radius:50%; border: 1px solid rgba(255,255,255,0.2);"></div>
         </div>
     </div>
 </section>

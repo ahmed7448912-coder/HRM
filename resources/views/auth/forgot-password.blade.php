@@ -19,12 +19,12 @@
 
             <!-- Session Status -->
             @if (session('status'))
-                <div class="success-msg">{{ session('status') }}</div>
+            <div class="success-msg">{{ session('status') }}</div>
             @endif
 
             <form method="POST" action="{{ route('password.email') }}" style="width:100%;">
                 @csrf
-                
+
                 <input type="email" name="email" class="form-input" placeholder="Enter your email address" value="{{ old('email') }}" required autofocus autocomplete="username">
                 @error('email') <span class="error-msg">{{ $message }}</span> @enderror
 

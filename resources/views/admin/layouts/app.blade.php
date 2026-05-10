@@ -35,7 +35,7 @@
 
     <!--begin::Accessibility Features-->
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css?v=1.1') }}" />
     <!--end::Accessibility Features-->
 
     <!--begin::Fonts-->

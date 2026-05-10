@@ -6,11 +6,24 @@
 <link rel="stylesheet" href="{{ asset('assets/css/auth_login.css') }}">
 
 <style>
-    .form-container h1, .overlay-container h1 { font-family: 'Syne', sans-serif; }
-    .form-container p, .form-container span, .overlay-container p, .btn-auth { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .form-container h1,
+    .overlay-container h1 {
+        font-family: 'Syne', sans-serif;
+    }
+
+    .form-container p,
+    .form-container span,
+    .overlay-container p,
+    .btn-auth {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 </style>
 
 <div class="auth-full-wrapper">
+    <a href="{{ route('home') }}" class="back-home-btn">
+        <div class="icon"><i class="bi bi-arrow-left"></i></div>
+        <span>Back to Home</span>
+    </a>
     <div class="container-custom" id="container">
         <div class="form-container">
             <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
@@ -21,15 +34,19 @@
                 @csrf
                 <h1>Sign in</h1>
                 <div class="social-container">
-                    <a href="#" style="width:auto; padding:0 20px; border-radius:20px; gap:10px;">
-                        <i class="bi bi-google"></i>
-                        <span style="font-size:12px; font-weight:700;">Login with Google</span>
+                    <a href="{{ route('google.redirect') }}" class="animate-google">
+                        <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
+                        <span>Sign in with Google</span>
                     </a>
                 </div>
                 <span>or use your account</span>
-                
+
                 @if (session('status'))
-                    <div style="color:#2ecc71; font-size:12px; margin-bottom:10px;">{{ session('status') }}</div>
+                <div style="color:#2ecc71; font-size:12px; margin-bottom:10px;">{{ session('status') }}</div>
+                @endif
+
+                @if (session('error'))
+                <div style="color:#ff4b2b; font-size:12px; margin-bottom:10px; font-weight:700;">{{ session('error') }}</div>
                 @endif
 
                 <input type="email" name="email" class="form-input" placeholder="Email" value="{{ old('email') }}" required autofocus autocomplete="username" />
@@ -39,7 +56,7 @@
                 @error('password') <span class="error-msg">{{ $message }}</span> @enderror
 
                 <a href="{{ route('password.request') }}" class="forgot">Forgot your password?</a>
-                
+
                 <div style="display:flex; align-items:center; gap:8px; margin-bottom:15px;">
                     <input type="checkbox" name="remember" id="remember_me" style="width:auto;">
                     <label for="remember_me" style="font-size:12px; color:#666;">Remember me</label>

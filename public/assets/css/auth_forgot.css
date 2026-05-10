@@ -23,10 +23,10 @@
 .container-custom {
     background-color: #fff;
     border-radius: 20px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
     position: relative;
     overflow: hidden;
-    width: 950px;
+    width: 850px; /* Aligned with Login/Register scale */
     max-width: 95%;
     min-height: 520px;
     display: flex;
@@ -143,6 +143,12 @@
 .success-msg {
     color: #10b981;
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: 700;
     margin-bottom: 1.5rem;
+    padding: 10px;
+    background: rgba(16, 185, 129, 0.08);
+    border-radius: 10px;
+    width: 100%;
 }
+
+

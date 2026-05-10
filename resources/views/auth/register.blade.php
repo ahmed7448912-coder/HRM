@@ -6,11 +6,24 @@
 <link rel="stylesheet" href="{{ asset('assets/css/auth_register.css') }}">
 
 <style>
-    .form-container h1, .overlay-container h1 { font-family: 'Syne', sans-serif; }
-    .form-container p, .form-container span, .overlay-container p, .btn-auth { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .form-container h1,
+    .overlay-container h1 {
+        font-family: 'Syne', sans-serif;
+    }
+
+    .form-container p,
+    .form-container span,
+    .overlay-container p,
+    .btn-auth {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
 </style>
 
 <div class="auth-full-wrapper">
+    <a href="{{ route('home') }}" class="back-home-btn">
+        <div class="icon"><i class="bi bi-arrow-left"></i></div>
+        <span>Back to Home</span>
+    </a>
     <div class="container-custom" id="container">
         <div class="form-container">
             <div style="margin-bottom: 2rem; display: flex; align-items: center; gap: 10px;">
@@ -20,13 +33,6 @@
             <form method="POST" action="{{ route('register') }}" style="width:100%;">
                 @csrf
                 <h1>Create Account</h1>
-                <div class="social-container">
-                    <a href="#" style="width:auto; padding:0 20px; border-radius:20px; gap:10px;">
-                        <i class="bi bi-google"></i>
-                        <span style="font-size:12px; font-weight:700;">Sign up with Google</span>
-                    </a>
-                </div>
-                <span>or use your email for registration</span>
 
                 <input type="text" name="name" class="form-input" placeholder="Name" value="{{ old('name') }}" required autofocus autocomplete="name" />
                 @error('name') <span class="error-msg">{{ $message }}</span> @enderror
