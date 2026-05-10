@@ -12,6 +12,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function ($middleware) {
 
+        $middleware->web(append: [
+            \App\Http\Middleware\CheckUserStatus::class,
+        ]);
+
         $middleware->alias([
 
             'role' =>
@@ -19,6 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
 
             'permission' =>
             \Spatie\Permission\Middleware\PermissionMiddleware::class,
+
+            'status' =>
+            \App\Http\Middleware\CheckUserStatus::class,
 
         ]);
     })

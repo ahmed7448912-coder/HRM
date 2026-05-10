@@ -1,0 +1,104 @@
+/* Approval Status Screens Styles */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --status-bg: #f4f6f9;
+    --status-card-bg: #ffffff;
+    --status-accent: #ff9800;
+    --status-accent-soft: #fff4e5;
+    --status-text-main: #1e293b;
+    --status-text-muted: #64748b;
+    --status-btn-bg: #f1f5f9;
+    --status-btn-hover: #e2e8f0;
+    --status-btn-text: #475569;
+    --status-shadow: rgba(0, 0, 0, 0.05);
+}
+
+/* Rejected Theme Overrides */
+body.is-rejected {
+    --status-bg: #fff1f2;
+    --status-accent: #e11d48;
+    --status-accent-soft: #fff1f2;
+    --status-text-main: #881337;
+    --status-text-muted: #9f1239;
+    --status-btn-bg: #be123c;
+    --status-btn-hover: #9f1239;
+    --status-btn-text: #ffffff;
+    --status-shadow: rgba(225, 29, 72, 0.1);
+}
+
+/* Only apply full-screen layout on actual status pages (pending/rejected) */
+body.is-status-page {
+    background: var(--status-bg);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+}
+
+.is-status-page .approval-card {
+    background: var(--status-card-bg);
+    padding: 2.5rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 25px var(--status-shadow);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
+
+.is-status-page .icon-circle {
+    width: 80px;
+    height: 80px;
+    background: var(--status-accent-soft);
+    color: var(--status-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2.5rem;
+}
+
+.is-status-page h2 {
+    font-weight: 700;
+    color: var(--status-text-main);
+    margin-bottom: 1rem;
+}
+
+.is-status-page p {
+    color: var(--status-text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.is-status-page .btn-logout {
+    background: var(--status-btn-bg);
+    color: var(--status-btn-text);
+    font-weight: 600;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+    width: 100%;
+    cursor: pointer;
+}
+
+.is-status-page .btn-logout:hover {
+    background: var(--status-btn-hover);
+    filter: brightness(0.95);
+}
+
+/* DataTables Styles for Admin Approval Panel */
+#approvalsTable_wrapper .dataTables_length, 
+#approvalsTable_wrapper .dataTables_filter {
+    padding: 1rem 1.5rem;
+}
+#approvalsTable_wrapper .dataTables_info, 
+#approvalsTable_wrapper .dataTables_paginate {
+    padding: 1rem 1.5rem;
+}
+.table-hover tbody tr:hover {
+    background-color: rgba(0,0,0,.02);
+}

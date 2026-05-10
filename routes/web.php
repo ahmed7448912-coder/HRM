@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\ApprovalController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', fn() => view('app.home'))->name('home');
@@ -24,11 +25,24 @@ Route::get('/solutions', fn() => view('app.pages.solutions'))->name('solutions')
 Route::get('/pricing', fn() => view('app.pages.pricing'))->name('pricing');
 Route::get('/resources', fn() => view('app.pages.resources'))->name('resources');
 
+// User Approval Status Routes
+Route::middleware('auth')->group(function () {
+    Route::get('/approval/pending', fn() => view('approval.pending'))->name('approval.pending');
+    Route::get('/approval/rejected', fn() => view('approval.rejected'))->name('approval.rejected');
+});
+
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
+
+    // User Approvals (Admin Only)
+    Route::middleware('role:Admin')->group(function () {
+        Route::get('/approvals', [ApprovalController::class, 'index'])->name('admin.approvals.index');
+        Route::post('/approvals/{user}/approve', [ApprovalController::class, 'approve'])->name('admin.approvals.approve');
+        Route::post('/approvals/{user}/reject', [ApprovalController::class, 'reject'])->name('admin.approvals.reject');
+    });
 
     // HR Modules
     Route::middleware('permission:employee.view')

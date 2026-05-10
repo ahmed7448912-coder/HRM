@@ -10,8 +10,11 @@
         <nav class="mt-2">
             <!--begin::Sidebar Menu-->
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="navigation" aria-label="Main navigation" data-accordion="false" id="navigation">
+                
+                @hasanyrole('Admin|HR')
                 <!-- MAIN SECTION -->
                 <div class="m4-group-label">MAIN</div>
+                @endhasanyrole
 
                 <li class="nav-item">
                     <a href="{{ route('admin.dashboard') }}" class="m4-nav-link active">
@@ -19,21 +22,23 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-                @can('employee.view')
+                @hasanyrole('Admin|HR')
                 <li class="nav-item">
                     <a href="{{ route('employees.index') }}" class="nav-link {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill"></i>
                         <span>Employees</span>
                     </a>
                 </li>
-                @endcan
+                @endhasanyrole
 
+                @hasanyrole('Admin|HR')
                 <li class="nav-item">
                     <a href="{{ route('departments.index') }}" class="nav-link {{ request()->routeIs('departments.*') ? 'active' : '' }}">
                         <i class="bi bi-building"></i>
                         <span>Departments</span>
                     </a>
                 </li>
+                @endhasanyrole
                 @can('attendance.view')
                 <li class="nav-item">
                     <a href="{{ route('attendances.index') }}" class="nav-link {{ request()->routeIs('attendances.*') ? 'active' : '' }}">
@@ -42,8 +47,12 @@
                     </a>
                 </li>
                 @endcan
+
+                @hasanyrole('Admin|HR')
                 <!-- FINANCE SECTION -->
                 <div class="m4-group-label m4-mt-3">FINANCE</div>
+                @endhasanyrole
+
                 @can('leave.view')
                 <li class="nav-item">
                     <a href="{{ route('leave.index') }}" class="nav-link {{ request()->routeIs('leave.*') ? 'active' : '' }}">
@@ -61,15 +70,20 @@
                     </a>
                 </li>
                 @endcan
+
+                @hasanyrole('Admin|HR')
                 <!-- GROWTH SECTION -->
                 <div class="m4-group-label m4-mt-3">GROWTH</div>
+                @endhasanyrole
 
+                @hasanyrole('Admin|HR')
                 <li class="nav-item">
                     <a href="{{ route('performance.index') }}" class="nav-link {{ request()->routeIs('performance.*') ? 'active' : '' }}">
                         <i class="bi bi-graph-up-arrow"></i>
                         <span>Performance</span>
                     </a>
                 </li>
+                @endhasanyrole
 
                 @can('reports.view')
                 <li class="nav-item">
@@ -82,9 +96,11 @@
 
                 {{-- Roles & Permissions (ONLY ADMIN) --}}
                 @role('Admin')
-                <li>
-                    <a href="#">
-
+                <div class="m4-group-label m4-mt-3">SYSTEM</div>
+                <li class="nav-item">
+                    <a href="{{ route('admin.approvals.index') }}" class="nav-link {{ request()->routeIs('admin.approvals.*') ? 'active' : '' }}">
+                        <i class="bi bi-shield-lock-fill"></i>
+                        <span>User Approvals</span>
                     </a>
                 </li>
                 @endrole
