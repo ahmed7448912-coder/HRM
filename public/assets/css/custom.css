@@ -1,9 +1,156 @@
-/* Global Dashboard Scale */
-html { font-size: 13px !important; }
+/* ══════════════════════════════════════
+   PeopleDesk HRM — Global Styles
+   Font: Inter (loaded via <head> link tag)
+   Base: 14px — Professional SaaS scale
+   ══════════════════════════════════════ */
 
-body { 
-    background-color: #f8fafc !important; /* Force the fresh light gray background */
+/* ── CSS VARIABLES ── */
+html, :root {
+    /* Global Dashboard Scale */
+    font-size: 12.5px !important;
+
+    /* Light Mode */
+    --bg-main: #f8fafc;
+    --card-bg: #ffffff;
+    --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+    --card-radius: 20px;
+    --accent-success: #00d97e;
+    --accent-indigo: #6366f1;
+    --accent-red: #ff4d4d;
+    --text-heading: #1e293b;
+    --text-muted-color: #64748b;
+    --border-color: #f1f5f9;
+
+    /* Dark Mode Variables (overridden below) */
+    --bg-dark-main: #0f172a;
+    --card-dark-bg: #1e293b;
+    --card-dark-hover: #263044;
+    --border-color-dark: rgba(255,255,255,0.08);
 }
+
+/* Light mode body */
+body {
+    background-color: var(--bg-main);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.5;
+    color: #111827;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ── DARK MODE ── */
+body.dark-mode {
+    background-color: var(--bg-dark-main) !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .card {
+    background: var(--card-dark-bg) !important;
+    box-shadow: 0 10px 40px -10px rgba(0,0,0,0.4) !important;
+    border: 1px solid var(--border-color-dark) !important;
+}
+
+body.dark-mode .card:hover {
+    background: var(--card-dark-hover) !important;
+}
+
+body.dark-mode .card-header {
+    border-bottom: 1px solid var(--border-color-dark) !important;
+}
+
+body.dark-mode h1, body.dark-mode h2, body.dark-mode h3,
+body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+body.dark-mode .text-dark, body.dark-mode .fw-bold {
+    color: #f1f5f9 !important;
+}
+
+body.dark-mode .text-muted {
+    color: #94a3b8 !important;
+}
+
+body.dark-mode .app-header.navbar,
+body.dark-mode nav.app-header {
+    background-color: #1e293b !important;
+    border-bottom: 1px solid var(--border-color-dark) !important;
+}
+
+body.dark-mode .bg-body {
+    background-color: #1e293b !important;
+}
+
+body.dark-mode .app-content-header {
+    background-color: var(--bg-dark-main) !important;
+    border-bottom: 1px solid var(--border-color-dark);
+}
+
+body.dark-mode .bg-light {
+    background-color: rgba(255,255,255,0.06) !important;
+}
+
+body.dark-mode .btn-light {
+    background-color: #263044 !important;
+    border-color: var(--border-color-dark) !important;
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .btn-group.bg-light {
+    background-color: rgba(255,255,255,0.06) !important;
+}
+
+body.dark-mode .dropdown-menu {
+    background-color: var(--card-dark-bg) !important;
+    border: 1px solid var(--border-color-dark) !important;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
+}
+
+body.dark-mode .dropdown-item {
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .dropdown-item:hover {
+    background-color: var(--card-dark-hover) !important;
+}
+
+body.dark-mode .nav-link {
+    color: #e2e8f0 !important;
+}
+
+body.dark-mode .badge.bg-success-soft { background-color: rgba(0, 217, 126, 0.15) !important; }
+body.dark-mode .badge.bg-primary-soft { background-color: rgba(99, 102, 241, 0.15) !important; }
+body.dark-mode .badge.bg-danger-soft  { background-color: rgba(255, 77, 77, 0.15) !important; }
+
+body.dark-mode .progress {
+    background-color: rgba(255,255,255,0.08) !important;
+}
+
+body.dark-mode .timeline-line {
+    background: #263044 !important;
+}
+
+body.dark-mode .timeline-dot {
+    border: 2px solid var(--bg-dark-main);
+}
+
+body.dark-mode .vacancy-card {
+    background: var(--card-dark-bg) !important;
+    border: 1px solid var(--border-color-dark) !important;
+}
+
+body.dark-mode .vacancy-card:hover {
+    border-color: var(--accent-red) !important;
+    background: var(--card-dark-hover) !important;
+}
+
+body.dark-mode .btn-outline-danger {
+    border-color: var(--accent-red) !important;
+    color: var(--accent-red) !important;
+}
+
+body.dark-mode .theme-toggle {
+    background-color: #263044 !important;
+}
+
+body.dark-mode .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
 
 /* Professional Avatar Initials */
 .avatar-circle {
@@ -19,28 +166,13 @@ body {
     text-transform: uppercase;
 }
 
-/* Premium Dashboard Theme Overrides */
-:root {
-    --bg-main: #f8fafc;
-    --card-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
-    --card-radius: 20px;
-    --accent-success: #00d97e; /* Neon Green from image */
-    --accent-indigo: #6366f1;
-    --text-heading: #1e293b;
-}
-
-body {
-    background-color: var(--bg-main) !important;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
 /* ── MODERN CARD STYLING ── */
 .card {
     border: none !important;
     border-radius: var(--card-radius) !important;
     box-shadow: var(--card-shadow) !important;
-    background: #ffffff !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    background: #ffffff;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     margin-bottom: 1.5rem;
     overflow: hidden;
 }
@@ -53,22 +185,41 @@ body {
 .card-header {
     background: transparent !important;
     border-bottom: 1px solid #f1f5f9 !important;
-    padding: 1.25rem 1.5rem !important;
+    padding: 0.85rem 1.25rem !important;
 }
 
 .card-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
     color: var(--text-heading);
-    font-size: 1.1rem;
+    font-size: 14px;
+    letter-spacing: -0.1px;
 }
 
 /* ── STATS & TYPOGRAPHY ── */
 .display-4, .display-5, .display-6 {
-    font-family: 'Syne', sans-serif !important;
-    font-weight: 800 !important;
-    letter-spacing: -1px;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.5px;
     color: var(--text-heading);
+    font-size: 1.75rem !important;
+}
+
+/* Dashboard widget stat numbers */
+.dashboard-stat-number {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #111827;
+    line-height: 1.2;
+}
+
+/* Page section headings */
+.app-content-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin: 0;
 }
 
 .text-success { color: var(--accent-success) !important; }
@@ -97,24 +248,7 @@ body {
 .row > div:nth-child(3) { animation-delay: 0.3s; }
 .row > div:nth-child(4) { animation-delay: 0.4s; }
 
-body.dark-mode .btn-outline-danger {
-    border-color: var(--accent-red) !important;
-    color: var(--accent-red) !important;
-}
-
-body.dark-mode .dropdown-menu {
-    background-color: var(--card-dark-bg) !important;
-    border: 1px solid var(--border-color-dark) !important;
-    box-shadow: 0 15px 30px rgba(0,0,0,0.4) !important;
-}
-
-body.dark-mode .dropdown-item {
-    color: #fff !important;
-}
-
-body.dark-mode .dropdown-item:hover {
-    background-color: var(--card-dark-hover) !important;
-}
+/* (Dark mode rules consolidated above in body.dark-mode block) */
 
 /* BEAUTIFUL VACANCY CARDS */
 .vacancy-card {
@@ -130,43 +264,7 @@ body.dark-mode .dropdown-item:hover {
     border-color: #ff4d4d !important;
 }
 
-body.dark-mode .vacancy-card {
-    background: linear-gradient(145deg, #111c44, #1b254b) !important;
-    border: 1px solid #2d3748 !important;
-}
-
-body.dark-mode .vacancy-card:hover {
-    border-color: var(--accent-red) !important;
-    background: #1b254b !important;
-}
-
-/* Progress Bars in Dark Mode */
-body.dark-mode .progress {
-    background-color: rgba(255,255,255,0.05) !important;
-}
-
-/* Timeline & Backgrounds */
-body.dark-mode .bg-light {
-    background-color: rgba(27, 37, 75, 0.5) !important;
-}
-
-body.dark-mode .timeline-line {
-    background: #1b254b !important;
-}
-
-body.dark-mode .timeline-dot {
-    border: 2px solid #0b1437;
-}
-
-/* Header Navbar Fix */
-body.dark-mode .app-header.navbar {
-    background-color: var(--bg-dark-main) !important;
-    border-bottom: 1px solid var(--border-color-dark) !important;
-}
-
-body.dark-mode .nav-link {
-    color: #fff !important;
-}
+/* (Dark mode rules consolidated above in body.dark-mode block) */
 
 /* Theme Toggle Button */
 .theme-toggle {
@@ -181,10 +279,6 @@ body.dark-mode .nav-link {
     background-color: #fff5f5;
 }
 
-body.dark-mode .theme-toggle {
-    background-color: #1b254b;
-}
-
 .theme-toggle i {
     font-size: 1.3rem;
 }
@@ -194,13 +288,4 @@ body.dark-mode .theme-toggle {
 
 .theme-toggle:hover {
     transform: rotate(15deg) scale(1.1);
-}
-
-/* Custom Scrollbar for Dark Mode */
-body.dark-mode .custom-scrollbar::-webkit-scrollbar-track {
-    background: #0b1437;
-}
-
-body.dark-mode .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #2d3748;
 }

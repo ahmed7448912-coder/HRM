@@ -27,23 +27,26 @@
 
     <!-- Apply theme immediately to prevent flashing -->
     <script>
-        if (localStorage.getItem('theme') === 'dark') {
-            document.documentElement.classList.add('dark-mode');
-            document.addEventListener('DOMContentLoaded', () => document.body.classList.add('dark-mode'));
-        }
+        (function() {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                // Also set on body as soon as it exists
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.classList.add('dark-mode');
+                });
+            }
+        })();
     </script>
 
     <!--begin::Accessibility Features-->
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css?v=1.1') }}" />
     <!--end::Accessibility Features-->
 
-    <!--begin::Fonts-->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
-        crossorigin="anonymous" />
+    <!--begin::Fonts — Inter (Professional SaaS)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
     <!--end::Fonts-->
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -62,7 +65,6 @@
 
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{ asset('assets/css/adminlte.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom-sidebar.css') }}" />
     <!--end::Required Plugin(AdminLTE)-->
 
     <!-- apexcharts -->
@@ -80,6 +82,10 @@
         crossorigin="anonymous" />
     
     @stack('styles')
+
+    <!-- Custom Override Styles (Loaded LAST to override plugins) -->
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}?v={{ time() }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/custom-sidebar.css') }}?v={{ time() }}" />
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -154,6 +160,7 @@
         });
     </script>
     <!--end::OverlayScrollbars Configure-->
+    @stack('modals')
     @stack('scripts')
     <!--end::Script-->
 </body>

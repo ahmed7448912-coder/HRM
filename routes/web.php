@@ -27,16 +27,44 @@ Route::get('/resources', fn() => view('app.pages.resources'))->name('resources')
 // Admin Routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('admin.dashboard');
 
     // HR Modules
-    Route::resource('employees', EmployeeController::class);
-    Route::resource('departments', DepartmentController::class);
-    Route::resource('attendances', AttendanceController::class);
-    Route::resource('leave', LeaveController::class);
-    Route::resource('payroll', PayrollController::class);
-    Route::resource('performance', PerformanceController::class);
-    Route::resource('reports', ReportController::class);
+    Route::middleware('permission:employee.view')
+        ->group(function () {
+            Route::resource('employees', EmployeeController::class);
+        });
+
+    Route::middleware('permission:employee.view')
+        ->group(function () {
+            Route::resource('departments', DepartmentController::class);
+        });
+
+    Route::middleware('permission:attendance.view')
+        ->group(function () {
+            Route::resource('attendances', AttendanceController::class);
+        });
+
+    Route::middleware('permission:leave.view')
+        ->group(function () {
+            Route::resource('leave', LeaveController::class);
+        });
+
+    Route::middleware('permission:payroll.manage')
+        ->group(function () {
+            Route::resource('payroll', PayrollController::class);
+        });
+
+    Route::middleware('permission:employee.view')
+        ->group(function () {
+            Route::resource('performance', PerformanceController::class);
+        });
+
+    Route::middleware('permission:reports.view')
+        ->group(function () {
+            Route::resource('reports', ReportController::class);
+        });
 });
 
 // Auth Routes
@@ -49,7 +77,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
+//log viewer route
 require __DIR__ . '/auth.php';
 
 Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);

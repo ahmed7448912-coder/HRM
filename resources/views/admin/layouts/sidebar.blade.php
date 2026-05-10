@@ -19,13 +19,14 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
-
+                @can('employee.view')
                 <li class="nav-item">
                     <a href="{{ route('employees.index') }}" class="nav-link {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                         <i class="bi bi-people-fill"></i>
                         <span>Employees</span>
                     </a>
                 </li>
+                @endcan
 
                 <li class="nav-item">
                     <a href="{{ route('departments.index') }}" class="nav-link {{ request()->routeIs('departments.*') ? 'active' : '' }}">
@@ -33,31 +34,33 @@
                         <span>Departments</span>
                     </a>
                 </li>
-
+                @can('attendance.view')
                 <li class="nav-item">
                     <a href="{{ route('attendances.index') }}" class="nav-link {{ request()->routeIs('attendances.*') ? 'active' : '' }}">
                         <i class="bi bi-calendar-check-fill"></i>
                         <span>Attendance</span>
                     </a>
                 </li>
-
+                @endcan
                 <!-- FINANCE SECTION -->
                 <div class="m4-group-label m4-mt-3">FINANCE</div>
-
+                @can('leave.view')
                 <li class="nav-item">
                     <a href="{{ route('leave.index') }}" class="nav-link {{ request()->routeIs('leave.*') ? 'active' : '' }}">
                         <i class="bi bi-hourglass-split"></i>
                         <span>Leave</span>
                     </a>
                 </li>
+                @endcan
 
+                @can('payroll.manage')
                 <li class="nav-item">
                     <a href="{{ route('payroll.index')}}" class="nav-link {{ request()->routeIs('payroll.index') ? 'active' : '' }}">
                         <i class="bi bi-cash-stack"></i>
                         <span>Payroll</span>
                     </a>
                 </li>
-
+                @endcan
                 <!-- GROWTH SECTION -->
                 <div class="m4-group-label m4-mt-3">GROWTH</div>
 
@@ -68,14 +71,26 @@
                     </a>
                 </li>
 
+                @can('reports.view')
                 <li class="nav-item">
                     <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
                         <i class="bi bi-file-earmark-bar-graph-fill"></i>
                         <span>Reports</span>
                     </a>
                 </li>
+                @endcan
+
+                {{-- Roles & Permissions (ONLY ADMIN) --}}
+                @role('Admin')
+                <li>
+                    <a href="#">
+
+                    </a>
+                </li>
+                @endrole
+
             </ul>
         </nav>
     </div>
-    <!--end::Sidebar Wrapper-->
+
 </aside>

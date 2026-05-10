@@ -11,6 +11,7 @@
 </div>
 
 <!-- Modal -->
+@push('modals')
 <div class="modal fade" id="confirmUserDeletionModal" tabindex="-1" aria-labelledby="confirmUserDeletionModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -28,6 +29,7 @@
                         {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Please enter your password to confirm you would like to permanently delete your account.') }}
                     </p>
 
+                    @if(auth()->user()->password)
                     <div class="mt-3">
                         <label for="password" class="form-label sr-only">{{ __('Password') }}</label>
                         <input
@@ -39,6 +41,13 @@
                         />
                         <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
                     </div>
+                    @else
+                    <div class="mt-3">
+                        <p class="text-danger small mb-0">
+                            <i class="bi bi-info-circle me-1"></i> Since you signed in with Google, no password is required to delete your account.
+                        </p>
+                    </div>
+                    @endif
                 </div>
 
                 <div class="modal-footer">
@@ -49,5 +58,6 @@
         </div>
     </div>
 </div>
+@endpush
 
 

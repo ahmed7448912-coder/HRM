@@ -67,6 +67,9 @@ class GoogleController extends Controller
                 'password'          => null,
             ]);
 
+            // Assign default role to new users so they can access the dashboard
+            $user->assignRole('Employee');
+
             Auth::login($user);
             $request->session()->save();
 

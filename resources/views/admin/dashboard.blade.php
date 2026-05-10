@@ -20,7 +20,7 @@
                     <div class="card-body p-4">
                         <div class="d-flex justify-content-between align-items-start mb-2">
                             <div>
-                                <h2 class="fw-bold mb-0 text-dark">{{ $w['val'] }}</h2>
+                                <div class="dashboard-stat-number mb-0 text-dark">{{ $w['val'] }}</div>
                                 <p class="text-muted small mb-0">{{ $w['label'] }}</p>
                             </div>
                             @php
