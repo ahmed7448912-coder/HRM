@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'email_verified_at',
+        'status',
         'provider_id',
         'provider_name',
         'provider_token',

@@ -36,10 +36,10 @@
                 <h5 class="fw-bold mb-0">Pending Requests</h5>
                 <p class="text-muted small mb-0">Manage new account registrations that require authorization.</p>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-hover align-middle mb-0 w-100" id="approvalsTable">
-                        <thead class="bg-light text-muted small text-uppercase">
+                    <table class="table table-striped align-middle mb-0 w-100" id="approvalsTable">
+                        <thead class="table-primary small text-uppercase">
                             <tr>
                                 <th class="ps-4">User Details</th>
                                 <th>Email</th>

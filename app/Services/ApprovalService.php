@@ -31,19 +31,28 @@ class ApprovalService
             })
             ->addColumn('actions', function ($row) {
                 return '
-                    <div class="d-flex justify-content-end gap-2">
-                        <form action="' . route('admin.approvals.approve', $row) . '" method="POST" class="d-inline">
-                            ' . csrf_field() . '
-                            <button type="submit" class="btn btn-success btn-sm rounded-pill px-3 shadow-sm" style="font-size: 11px;">
-                                <i class="bi bi-check-lg me-1"></i> Approve
-                            </button>
-                        </form>
-                        <form action="' . route('admin.approvals.reject', $row) . '" method="POST" class="d-inline">
-                            ' . csrf_field() . '
-                            <button type="submit" class="btn btn-outline-danger btn-sm rounded-pill px-3 shadow-sm" style="font-size: 11px;">
-                                <i class="bi bi-x-lg me-1"></i> Reject
-                            </button>
-                        </form>
+                    <div class="dropdown text-end pe-3">
+                        <button class="btn btn-light btn-sm rounded-pill shadow-sm border border-white dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-sm rounded-4">
+                            <li>
+                                <form action="' . route('admin.approvals.approve', $row) . '" method="POST" class="d-inline">
+                                    ' . csrf_field() . '
+                                    <button type="submit" class="dropdown-item py-2 text-success">
+                                        <i class="bi bi-check-circle-fill me-2"></i> Approve User
+                                    </button>
+                                </form>
+                            </li>
+                            <li>
+                                <form action="' . route('admin.approvals.reject', $row) . '" method="POST" class="d-inline">
+                                    ' . csrf_field() . '
+                                    <button type="submit" class="dropdown-item py-2 text-danger">
+                                        <i class="bi bi-x-circle-fill me-2"></i> Reject User
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>';
             })
             ->rawColumns(['user_details', 'actions'])
