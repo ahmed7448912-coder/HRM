@@ -48,7 +48,8 @@ class GoogleController extends Controller
                 $driver->setHttpClient(new Client(['verify' => false]));
             }
 
-            $googleUser = $driver->user();
+            $googleUser = $driver->stateless()->user();
+            Log::info('Google User retrieved successfully: ' . $googleUser->getEmail());
 
             // Check if user already exists by email
             $existingUser = User::where('email', $googleUser->getEmail())->first();
@@ -86,8 +87,11 @@ class GoogleController extends Controller
 
             return redirect('/admin/dashboard');
         } catch (\Exception $e) {
-            // Log the error for debugging
-            Log::error('Google Login Error: ' . $e->getMessage());
+            // Log the full error for debugging
+            Log::error('Google Login Error: ' . $e->getMessage(), [
+                'exception' => $e,
+                'trace' => $e->getTraceAsString()
+            ]);
 
             return redirect('/login')->with('error', 'Google login failed: ' . $e->getMessage());
         }
