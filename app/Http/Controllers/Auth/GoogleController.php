@@ -7,10 +7,16 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class GoogleController extends Controller
 {
-    // Redirect to Google
+    /**
+     * Redirect to Google for authentication.
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function redirect()
     {
         /** @var \Laravel\Socialite\Two\AbstractProvider $driver */
@@ -21,13 +27,18 @@ class GoogleController extends Controller
             $driver->setHttpClient(new Client(['verify' => false]));
         }
 
-        return $driver->redirect();
+        // Force account selection screen
+        return $driver->with(['prompt' => 'select_account'])->redirect();
     }
 
-    // Handle Google Callback
-    public function callback(\Illuminate\Http\Request $request)
+    /**
+     * Handle Google Callback.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function callback(Request $request)
     {
-
         try {
             /** @var \Laravel\Socialite\Two\AbstractProvider $driver */
             $driver = Socialite::driver('google');
@@ -76,7 +87,7 @@ class GoogleController extends Controller
             return redirect('/admin/dashboard');
         } catch (\Exception $e) {
             // Log the error for debugging
-            \Illuminate\Support\Facades\Log::error('Google Login Error: ' . $e->getMessage());
+            Log::error('Google Login Error: ' . $e->getMessage());
 
             return redirect('/login')->with('error', 'Google login failed: ' . $e->getMessage());
         }
