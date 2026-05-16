@@ -48,8 +48,8 @@
                             <img src="{{ asset('assets/img/user2-160x160.jpg') }}" class="rounded-4 shadow-sm me-3 border border-white" style="width: 80px; height: 80px; object-fit: cover;" alt="User">
                             <div class="flex-grow-1">
                                 <h5 class="fw-bold mb-0 text-truncate text-dark" style="max-width: 120px;">{{ $user->name }}</h5>
-                                <p class="text-danger small mb-1 fw-bold">Administrator</p>
-                                <p class="text-muted extra-small mb-0"><i class="bi bi-geo-alt-fill me-1"></i> Toba Tek Singh, PK</p>
+                                <p class="text-danger small mb-1 fw-bold">{{ $user->getRoleNames()->first() ?? 'Team Member' }} Profile</p>
+                                <p class="text-muted extra-small mb-0"><i class="bi bi-geo-alt-fill me-1"></i> HQ, Islamabad</p>
                             </div>
                             <a href="{{ route('profile.edit') }}" class="btn btn-primary btn-sm rounded-pill px-3 shadow-sm border-0" style="background: linear-gradient(135deg, #ff4d4d, #f06b6b);">Update</a>
                         </div>
