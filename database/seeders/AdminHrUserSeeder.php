@@ -35,7 +35,7 @@ class AdminHrUserSeeder extends Seeder
         // =========================
 
         $hr = User::updateOrCreate(
-            ['email' => 'hr@hrm.com'],
+            ['email' => 'ourtv.wm@gmail.com'],
             [
                 'name' => 'HR',
                 'password' => bcrypt('password'),
