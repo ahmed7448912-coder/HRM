@@ -10,7 +10,7 @@ use App\Http\Controllers\admin\PerformanceController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Auth\SocialAuthController;
 use App\Http\Controllers\ApprovalController;
 use Illuminate\Support\Facades\Route;
 
@@ -83,8 +83,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
 
 // Auth Routes
 
-Route::get('/auth/google', [GoogleController::class, 'redirect'])->name('google.redirect');
-Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
+Route::get('/auth/google', [SocialAuthController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [SocialAuthController::class, 'callback'])->name('google.callback');
+Route::get('/auth/facebook', [SocialAuthController::class, 'redirectToFacebook'])->name('auth.facebook');
+Route::get('/auth/facebook/callback', [SocialAuthController::class, 'handleFacebookCallback']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

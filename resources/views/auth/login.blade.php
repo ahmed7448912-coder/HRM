@@ -33,10 +33,14 @@
             <form method="POST" action="{{ route('login') }}" style="width:100%;">
                 @csrf
                 <h1>Sign in</h1>
-                <div class="social-container">
-                    <a href="{{ route('google.redirect') }}" class="animate-google">
+                <div class="social-container" style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="{{ route('google.redirect') }}" class="animate-social">
                         <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google">
-                        <span>Sign in with Google</span>
+                        <span>Google</span>
+                    </a>
+                    <a href="{{ route('auth.facebook') }}" class="animate-social facebook-btn" style="animation-delay: 0.2s;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" alt="Facebook">
+                        <span>Facebook</span>
                     </a>
                 </div>
                 <span>or use your account</span>
