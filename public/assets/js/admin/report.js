@@ -10,8 +10,6 @@ $(document).ready(function() {
     });
 
     let attendanceTable = $('#attendanceTable').DataTable({
-        processing: true,
-        serverSide: true,
         ajax: {
             url: '/admin/reports',
             data: function (d) {

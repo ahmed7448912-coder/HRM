@@ -1,0 +1,259 @@
+/* ══════════════════════════════════════
+   PeopleDesk HRM — Custom DataTables Theme
+   Inspiration: HomeHives / Modern SaaS
+   ══════════════════════════════════════ */
+
+:root {
+    --dt-primary: #7c3aed; /* Vibrant Violet */
+    --dt-primary-light: rgba(124, 58, 237, 0.1);
+    --dt-border: #f1f5f9;
+    --dt-text: #334155;
+    --dt-muted: #64748b;
+}
+
+/* ── TABLE OVERRIDES ── */
+.dataTables_wrapper {
+    padding: 0;
+}
+
+/* Fix Length Menu & Filter Overlap */
+.dataTables_length,
+.dataTables_filter {
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+.dataTables_length label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+    color: var(--dt-muted);
+    font-weight: 500;
+}
+
+.dataTables_length select {
+    width: auto !important;
+    min-width: 70px;
+    padding: 0.4rem 2rem 0.4rem 0.75rem !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    cursor: pointer;
+}
+
+.dataTables_filter label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--dt-muted);
+    font-weight: 500;
+}
+
+table.dataTable {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border: none !important;
+    margin-top: 0.5rem !important;
+    margin-bottom: 1.5rem !important;
+}
+
+table.dataTable thead th {
+    background-color: #f8fafc !important;
+    color: var(--dt-text) !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.05em !important;
+    padding: 1.2rem 1rem !important;
+    border-bottom: 1px solid var(--dt-border) !important;
+}
+
+table.dataTable tbody td {
+    padding: 1rem !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid var(--dt-border) !important;
+    color: var(--dt-text) !important;
+    font-size: 0.9rem !important;
+}
+
+/* ── SEARCH & LENGTH ── */
+.dataTables_filter input {
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s ease;
+    background-color: #fff !important;
+    height: 42px;
+    width: 250px !important;
+    padding: 0.5rem 1rem !important;
+}
+
+.dataTables_filter input:focus {
+    outline: none !important;
+    border-color: var(--dt-primary) !important;
+    box-shadow: 0 0 0 4px var(--dt-primary-light) !important;
+}
+
+/* ── BUTTONS & EXPORT ── */
+.dt-buttons {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Match Export button to the "Add" button height and style */
+.btn-export {
+    background-color: #f5f3ff !important;
+    color: var(--dt-primary) !important;
+    border: 1px solid #ddd6fe !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    padding: 0 1.25rem !important;
+    height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem;
+    font-size: 0.9rem !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
+}
+
+.btn-export:hover {
+    background-color: var(--dt-primary) !important;
+    color: #fff !important;
+    border-color: var(--dt-primary) !important;
+}
+
+/* Dropdown Collection Styling */
+div.dt-button-collection {
+    padding: 0.5rem !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1) !important;
+    background: #fff !important;
+    z-index: 2000 !important; /* Ensure it's above everything */
+}
+
+button.dt-button.dropdown-item {
+    border: none !important;
+    background: transparent !important;
+    padding: 0.6rem 1rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    border-radius: 8px !important;
+    color: var(--dt-text) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    width: 100% !important;
+    margin-bottom: 2px !important;
+}
+
+button.dt-button.dropdown-item:hover {
+    background-color: #f5f3ff !important;
+    color: var(--dt-primary) !important;
+}
+
+/* ── PAGINATION ── */
+.dataTables_paginate .page-link {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px !important;
+    margin: 0 2px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    border: 1px solid #e2e8f0 !important;
+    color: var(--dt-muted) !important;
+}
+
+.dataTables_paginate .page-item.active .page-link {
+    background-color: var(--dt-primary) !important;
+    border-color: var(--dt-primary) !important;
+    color: #fff !important;
+}
+
+/* Action Buttons in Table */
+.btn-action {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.btn-edit {
+    background-color: #e0f2fe;
+    color: #0ea5e9;
+}
+
+.btn-edit:hover {
+    background-color: #0ea5e9;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.btn-delete:hover {
+    background-color: #ef4444;
+    color: #fff;
+}
+
+/* ── STATUS TOGGLE (Switch) ── */
+.form-check-input:checked {
+    background-color: var(--dt-primary) !important;
+    border-color: var(--dt-primary) !important;
+}
+
+/* ── CARD HEADER & TOOLS ── */
+.card-header.d-flex {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+}
+
+.card-tools {
+    position: static !important; /* Override AdminLTE absolute positioning */
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    margin-left: auto !important; /* Force to right corner */
+}
+
+/* Ensure Add Button matches Export button height */
+.card-tools .btn {
+    height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 600 !important;
+    border-radius: 10px !important;
+    font-size: 0.9rem !important;
+}
+
+/* ── DARK MODE COMPATIBILITY ── */
+body.dark-mode table.dataTable thead th {
+    background-color: #1e293b !important;
+    color: #f1f5f9 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+body.dark-mode table.dataTable tbody td {
+    color: #cbd5e1 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+body.dark-mode .dataTables_length select,
+body.dark-mode .dataTables_filter input {
+    background-color: #1e293b !important;
+    border-color: rgba(255,255,255,0.1) !important;
+    color: #f1f5f9 !important;
+}

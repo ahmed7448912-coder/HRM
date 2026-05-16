@@ -3,8 +3,6 @@ $(document).ready(function () {
     
     if ($(tableId).length > 0) {
         $(tableId).DataTable({
-            processing: true,
-            serverSide: true,
             ajax: '/admin/employees',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
@@ -14,7 +12,7 @@ $(document).ready(function () {
                 { data: 'department', name: 'department' },
                 { data: 'salary', name: 'salary' },
                 { data: 'joining_date', name: 'joining_date' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' }
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end' }
             ]
         });
     }

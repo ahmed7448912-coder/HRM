@@ -1,14 +1,13 @@
 @extends('admin.layouts.app')
 
 @push('styles')
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="{{ asset('assets/css/approval-status.css') }}">
 @endpush
 
 @section('content')
 <div class="app-content-header">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row align-items-center">
             <div class="col-sm-6">
                 <h3 class="mb-0">User Approvals</h3>
             </div>
@@ -31,17 +30,22 @@
         </div>
         @endif
 
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-            <div class="card-header bg-transparent border-0 pt-4 px-4">
-                <h5 class="fw-bold mb-0">Pending Requests</h5>
-                <p class="text-muted small mb-0">Manage new account registrations that require authorization.</p>
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-0">Pending Requests</h5>
+                    <p class="text-muted small mb-0">Manage new account registrations that require authorization.</p>
+                </div>
+                <div class="card-tools">
+                    <!-- DataTables Export buttons will be moved here -->
+                </div>
             </div>
-            <div class="card-body">
+            <div class="card-body px-4">
                 <div class="table-responsive">
-                    <table class="table table-striped align-middle mb-0 w-100" id="approvalsTable">
-                        <thead class="table-primary small text-uppercase">
+                    <table class="table align-middle mb-0 w-100" id="approvalsTable">
+                        <thead class="small text-uppercase">
                             <tr>
-                                <th class="ps-4">User Details</th>
+                                <th>User Details</th>
                                 <th>Email</th>
                                 <th>Registered At</th>
                                 <th class="text-end pe-4">Actions</th>
@@ -59,36 +63,17 @@
 @endsection
 
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
 <script>
 $(document).ready(function() {
     $('#approvalsTable').DataTable({
-        processing: true,
-        serverSide: true,
         ajax: "{{ route('admin.approvals.index') }}",
         columns: [
-            { data: 'user_details', name: 'name', orderable: true, className: 'ps-4' },
+            { data: 'user_details', name: 'name', orderable: true },
             { data: 'email', name: 'email' },
             { data: 'created_at', name: 'created_at' },
-            { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end pe-4' }
+            { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end' }
         ],
-        order: [[2, 'desc']], // Order by registered at
-        language: {
-            processing: '<div class="spinner-border text-primary spinner-border-sm" role="status"></div>',
-            search: "_INPUT_",
-            searchPlaceholder: "Search users...",
-            lengthMenu: "_MENU_",
-            paginate: {
-                next: '<i class="bi bi-chevron-right"></i>',
-                previous: '<i class="bi bi-chevron-left"></i>'
-            }
-        },
-        pageLength: 10,
-        drawCallback: function() {
-            $('.dataTables_paginate > .pagination').addClass('pagination-sm mb-0');
-        }
+        order: [[2, 'desc']]
     });
 });
 </script>

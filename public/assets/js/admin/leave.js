@@ -1,7 +1,5 @@
 $(document).ready(function() {
     let table = $('#leaveTable').DataTable({
-        processing: true,
-        serverSide: true,
         ajax: '/admin/leave',
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
@@ -10,7 +8,7 @@ $(document).ready(function() {
             { data: 'from_date' },
             { data: 'to_date' },
             { data: 'status' },
-            { data: 'actions', orderable: false, searchable: false }
+            { data: 'actions', orderable: false, searchable: false, className: 'text-end' }
         ]
     });
 

@@ -3,15 +3,13 @@ $(document).ready(function () {
     
     if ($(tableId).length > 0) {
         $(tableId).DataTable({
-            processing: true,
-            serverSide: true,
             ajax: '/admin/departments',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'name', name: 'name' },
                 { data: 'code', name: 'code' },
                 { data: 'description', name: 'description' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' }
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end' }
             ]
         });
     }

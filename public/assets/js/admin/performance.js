@@ -1,7 +1,5 @@
 $(document).ready(function() {
     let table = $('#performanceTable').DataTable({
-        processing: true,
-        serverSide: true,
         ajax: '/admin/performance',
         columns: [
             { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
@@ -9,7 +7,7 @@ $(document).ready(function() {
             { data: 'rating' },
             { data: 'review' },
             { data: 'formatted_date', name: 'review_date' },
-            { data: 'actions', orderable: false, searchable: false, className: 'text-center' }
+            { data: 'actions', orderable: false, searchable: false, className: 'text-end' }
         ]
     });
     // toast message for success and error

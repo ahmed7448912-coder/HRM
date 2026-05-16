@@ -11,9 +11,7 @@ $(document).ready(function () {
 
     if ($(tableId).length > 0) {
         $(tableId).DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '/admin/attendances', // Corrected plural URL
+            ajax: '/admin/attendances',
             columns: [
                 { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
                 { data: 'employee', name: 'employee' },
@@ -21,7 +19,7 @@ $(document).ready(function () {
                 { data: 'check_in', name: 'check_in' },
                 { data: 'check_out', name: 'check_out' },
                 { data: 'status', name: 'status' },
-                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-center' }
+                { data: 'actions', name: 'actions', orderable: false, searchable: false, className: 'text-end' }
             ]
         });
     }

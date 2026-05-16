@@ -1,61 +1,81 @@
 @extends('admin.layouts.app')
 
-@section('content')
-<div class="container-fluid p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>Leave Management</h2>
-        <a href="{{ route('leave.create') }}" class="btn btn-primary">
-            <i class="bi bi-plus-lg"></i> Apply Leave
-        </a>
-    </div>
-    
-    @if(session('success'))
-        <script>
-            window.onload = function() {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true
-                });
-                Toast.fire({
-                    icon: 'success',
-                    title: "{{ session('success') }}"
-                });
-            };
-        </script>
-    @endif
+@push('styles')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+@endpush
 
-    <div class="card card-primary card-outline shadow-sm border-0">
-        <div class="card-body">
-            <table id="leaveTable" class="table table-striped w-100">
-                <thead class="table-primary">
-                    <tr>
-                        <th>#</th>
-                        <th>Employee</th>
-                        <th>Type</th>
-                        <th>From</th>
-                        <th>To</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            </table>
+@section('content')
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h3 class="mb-0">{{ __('Leave Management') }}</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active">{{ __('Leave') }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="app-content">
+    <div class="container-fluid">
+        @if(session('success'))
+            <script>
+                window.onload = function() {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true
+                    });
+                    Toast.fire({
+                        icon: 'success',
+                        title: "{{ session('success') }}"
+                    });
+                };
+            </script>
+        @endif
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-0">{{ __('Leave Requests') }}</h5>
+                    <p class="text-muted small mb-0">Monitor and manage employee time-off requests.</p>
+                </div>
+                <div class="card-tools">
+                    <a href="{{ route('leave.create') }}" class="btn btn-primary rounded-3 shadow-sm px-3">
+                        <i class="bi bi-calendar-plus-fill me-2"></i> {{ __('Apply Leave') }}
+                    </a>
+                </div>
+            </div>
+            <div class="card-body px-4">
+                <div class="table-responsive">
+                    <table id="leaveTable" class="table align-middle mb-0 w-100">
+                        <thead class="small text-uppercase">
+                            <tr>
+                                <th>#</th>
+                                <th>{{ __('Employee') }}</th>
+                                <th>{{ __('Type') }}</th>
+                                <th>{{ __('From') }}</th>
+                                <th>{{ __('To') }}</th>
+                                <th>{{ __('Status') }}</th>
+                                <th class="text-end">{{ __('Actions') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @endsection
 
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="{{ asset('assets/js/admin/leave.js') }}"></script>
-@endpush
-
-@push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-@endpush
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{{ asset('assets/js/admin/leave.js') }}"></script>
+@endpush

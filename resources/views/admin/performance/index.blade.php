@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         .star-rating {
@@ -41,28 +40,52 @@
 @endpush
 
 @section('content')
-<div class="container-fluid p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">Performance Reviews</h2>
-        <button id="addPerformance" class="btn btn-primary shadow-sm">
-            <i class="bi bi-plus-lg"></i> Add Review
-        </button>
+<div class="app-content-header">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-sm-6">
+                <h3 class="mb-0">{{ __('Performance Reviews') }}</h3>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-end">
+                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item active">{{ __('Performance') }}</li>
+                </ol>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div class="card shadow-sm border-0">
-        <div class="card-body">
-            <table id="performanceTable" class="table table-hover w-100">
-                <thead class="bg-light">
-                    <tr>
-                        <th>#</th>
-                        <th>Employee</th>
-                        <th>Rating</th>
-                        <th>Review</th>
-                        <th>Date</th>
-                        <th class="text-center">Action</th>
-                    </tr>
-                </thead>
-            </table>
+<div class="app-content">
+    <div class="container-fluid">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0 pt-4 px-4 d-flex justify-content-between align-items-center">
+                <div>
+                    <h5 class="fw-bold mb-0">{{ __('Performance Reviews') }}</h5>
+                    <p class="text-muted small mb-0">Evaluate employee performance and provide feedback.</p>
+                </div>
+                <div class="card-tools">
+                    <button id="addPerformance" class="btn btn-primary rounded-3 shadow-sm px-3">
+                        <i class="bi bi-plus-lg me-2"></i> {{ __('Add Review') }}
+                    </button>
+                </div>
+            </div>
+            <div class="card-body px-4">
+                <div class="table-responsive">
+                    <table id="performanceTable" class="table align-middle mb-0 w-100">
+                        <thead class="small text-uppercase">
+                            <tr>
+                                <th>#</th>
+                                <th>{{ __('Employee') }}</th>
+                                <th>{{ __('Rating') }}</th>
+                                <th>{{ __('Review') }}</th>
+                                <th>{{ __('Date') }}</th>
+                                <th class="text-end">{{ __('Actions') }}</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -70,7 +93,7 @@
 <!-- Performance Modal -->
 <div class="modal fade" id="performanceModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
             <div class="modal-header border-0 pb-0">
                 <h5 class="modal-title fw-bold" id="modalTitle">Add Performance Review</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -78,10 +101,10 @@
             <form id="performanceForm">
                 @csrf
                 <input type="hidden" id="performanceId" name="id">
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Employee</label>
-                        <select name="employee_id" id="employee_id" class="form-select shadow-sm" required>
+                        <select name="employee_id" id="employee_id" class="form-select rounded-3 shadow-sm" required>
                             <option value="">Select Employee</option>
                             @foreach($employees as $id => $name)
                                 <option value="{{ $id }}">{{ $name }}</option>
@@ -100,16 +123,16 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Review</label>
-                        <textarea name="review" id="review" class="form-control shadow-sm" rows="3"></textarea>
+                        <textarea name="review" id="review" class="form-control rounded-3 shadow-sm" rows="3" placeholder="Enter feedback..."></textarea>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Review Date</label>
-                        <input type="date" name="review_date" id="review_date" class="form-control shadow-sm" required>
+                        <input type="date" name="review_date" id="review_date" class="form-control rounded-3 shadow-sm" required>
                     </div>
                 </div>
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary px-4 shadow-sm">Save Review</button>
+                <div class="modal-footer border-0 p-4 pt-0">
+                    <button type="button" class="btn btn-light rounded-3 px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary rounded-3 px-4 shadow-sm">Save Review</button>
                 </div>
             </form>
         </div>
@@ -118,9 +141,6 @@
 @endsection
 
 @push('scripts')
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('assets/js/admin/performance.js') }}"></script>
 @endpush
