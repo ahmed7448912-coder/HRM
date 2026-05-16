@@ -62,18 +62,18 @@ table.dataTable thead th {
     color: var(--dt-text) !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    font-size: 0.75rem !important;
+    font-size: 0.72rem !important;
     letter-spacing: 0.05em !important;
-    padding: 1.2rem 1rem !important;
+    padding: 0.75rem 1rem !important;
     border-bottom: 1px solid var(--dt-border) !important;
 }
 
 table.dataTable tbody td {
-    padding: 1rem !important;
+    padding: 0.65rem 1rem !important;
     vertical-align: middle !important;
     border-bottom: 1px solid var(--dt-border) !important;
     color: var(--dt-text) !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
 }
 
 /* ── SEARCH & LENGTH ── */
@@ -83,7 +83,7 @@ table.dataTable tbody td {
     font-size: 0.85rem !important;
     transition: all 0.2s ease;
     background-color: #fff !important;
-    height: 42px;
+    height: 38px;
     width: 250px !important;
     padding: 0.5rem 1rem !important;
 }
@@ -109,12 +109,12 @@ table.dataTable tbody td {
     font-weight: 600 !important;
     border-radius: 10px !important;
     padding: 0 1.25rem !important;
-    height: 40px !important;
+    height: 36px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     gap: 0.5rem;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
     transition: all 0.2s ease !important;
     box-shadow: 0 1px 2px rgba(0,0,0,0.05) !important;
 }
@@ -230,13 +230,13 @@ button.dt-button.dropdown-item:hover {
 
 /* Ensure Add Button matches Export button height */
 .card-tools .btn {
-    height: 40px !important;
+    height: 36px !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     font-weight: 600 !important;
     border-radius: 10px !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
 }
 
 /* ── DARK MODE COMPATIBILITY ── */

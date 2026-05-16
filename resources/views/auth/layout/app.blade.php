@@ -30,14 +30,11 @@
     <link rel="preload" href="{{ asset('assets/css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
 
-    <!--begin::Fonts-->
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
-        integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q="
-        crossorigin="anonymous"
-        media="print"
-        onload="this.media = 'all'" />
+    <!--begin::Fonts — Inter (Professional SaaS)-->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
     <!--end::Fonts-->
 
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
@@ -57,6 +54,16 @@
     <!--begin::Required Plugin(AdminLTE)-->
     <link rel="stylesheet" href="{{asset('assets/css/adminlte.css')}}" />
     <!--end::Required Plugin(AdminLTE)-->
+
+    <style>
+        html {
+            font-size: 13.5px !important;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+            background-color: #f8fafc;
+        }
+    </style>
 </head>
 <!--end::Head-->
 
