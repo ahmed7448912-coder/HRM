@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Salary;
 use App\Models\SalaryTransaction;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalaryRepository
 {
@@ -69,5 +70,59 @@ class SalaryRepository
         }
 
         return $query->paginate($perPage);
+    }
+
+    public function getDatatable()
+    {
+        $salaries = Salary::with('employee')->select('salaries.*');
+
+        return DataTables::of($salaries)
+            ->addColumn('employee', fn($row) => $row->employee->name ?? '-')
+            ->editColumn('amount', fn($row) => '$' . number_format($row->amount, 2))
+            ->editColumn('status', function($row) {
+                if($row->status === 'paid') {
+                    return '<span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 border border-success border-opacity-25">Paid</span>';
+                }
+                return '<span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 border border-warning border-opacity-25">Unpaid</span>';
+            })
+            ->editColumn('paid_at', fn($row) => $row->paid_at ? $row->paid_at->format('d M Y') : '—')
+            ->addColumn('email_status', function($row) {
+                $tx = $row->transactions->last();
+                if($tx && $tx->email_sent_at) {
+                    return '<small class="text-success d-flex align-items-center"><i class="bi bi-check2-all me-1"></i> Sent ' . $tx->email_sent_at->format('d M, h:i A') . '</small>';
+                }
+                return '<small class="text-muted"><i class="bi bi-envelope-x me-1"></i> Not sent</small>';
+            })
+            ->addColumn('actions', function($row) {
+                return view('admin.salary._actions', [
+                    'id'     => $row->id,
+                    'status' => $row->status,
+                ])->render();
+            })
+            ->rawColumns(['status', 'email_status', 'actions'])
+            ->make(true);
+    }
+
+    public function getTransactionsDatatable()
+    {
+        $transactions = SalaryTransaction::with('salary.employee')->select('salary_transactions.*');
+
+        return DataTables::of($transactions)
+            ->addColumn('employee', fn($row) => $row->salary->employee->name ?? '-')
+            ->addColumn('month', fn($row) => $row->salary->month ?? '-')
+            ->editColumn('amount', fn($row) => '<span class="text-success fw-bold">$' . number_format($row->amount, 2) . '</span>')
+            ->editColumn('payment_method', function($row) {
+                return '<span class="badge bg-light text-dark border"><i class="bi bi-credit-card me-1"></i> ' . ucfirst($row->payment_method) . '</span>';
+            })
+            ->editColumn('status', function($row) {
+                if($row->status === 'success') {
+                    return '<span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 border border-success border-opacity-25">Success</span>';
+                }
+                return '<span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 border border-danger border-opacity-25">Failed</span>';
+            })
+            ->editColumn('transaction_id', fn($row) => '<span class="font-monospace small text-muted">' . $row->transaction_id . '</span>')
+            ->editColumn('created_at', fn($row) => $row->created_at->format('d M Y, h:i A'))
+            ->rawColumns(['amount', 'payment_method', 'status', 'transaction_id'])
+            ->make(true);
     }
 }

@@ -19,16 +19,20 @@ class SalaryController extends Controller
 
     public function index()
     {
-        $salaries = $this->repo->allPaginated();
-        return view('admin.salary.index', compact('salaries'));
+        if (request()->ajax()) {
+            return $this->repo->getDatatable();
+        }
+
+        return view('admin.salary.index');
     }
 
     public function transactions(Request $request)
     {
-        $filters = $request->only(['status', 'month', 'employee']);
-        $transactions = $this->repo->filteredTransactions($filters);
+        if (request()->ajax()) {
+            return $this->repo->getTransactionsDatatable();
+        }
 
-        return view('admin.salary.transactions', compact('transactions'));
+        return view('admin.salary.transactions');
     }
 
     public function pay(Salary $salary)

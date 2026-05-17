@@ -71,6 +71,15 @@
                 </li>
                 @endcan
 
+                @can('salary.view')
+                <li class="nav-item">
+                    <a href="{{ route('salary.index')}}" class="nav-link {{ request()->routeIs('salary.*') ? 'active' : '' }}">
+                        <i class="bi bi-wallet2"></i>
+                        <span>Salary Payments</span>
+                    </a>
+                </li>
+                @endcan
+
                 @hasanyrole('Admin|HR')
                 <!-- GROWTH SECTION -->
                 <div class="m4-group-label m4-mt-3">GROWTH</div>
