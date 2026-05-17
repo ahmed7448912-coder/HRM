@@ -6,6 +6,8 @@ use App\Models\Attendance;
 use App\Models\Leave;
 use App\Observers\AttendanceObserver;
 use App\Observers\LeaveObserver;
+use App\Repositories\SalaryRepository;
+use App\Services\SalaryService;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +17,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(SalaryRepository::class);
+        $this->app->bind(SalaryService::class);
     }
 
     /**

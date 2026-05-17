@@ -8,6 +8,8 @@ use App\Http\Controllers\admin\LeaveController;
 use App\Http\Controllers\admin\PayrollController;
 use App\Http\Controllers\admin\PerformanceController;
 use App\Http\Controllers\admin\ReportController;
+use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SalaryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\SocialAuthController;
@@ -78,6 +80,18 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::middleware('permission:reports.view')
         ->group(function () {
             Route::resource('reports', ReportController::class);
+        });
+    Route::middleware(['auth', 'role:Admin'])
+        ->group(function () {
+            Route::resource('roles', RoleController::class);
+        });
+    Route::middleware(['auth', 'permission:salary.view'])
+        ->group(function () {
+            Route::get('salary/transactions', [SalaryController::class, 'transactions'])->name('salary.transactions');
+            Route::get('salary/{salary}/pay', [SalaryController::class, 'pay'])->name('salary.pay');
+            Route::post('salary/{salary}/process', [SalaryController::class, 'process'])->name('salary.process');
+            Route::post('salary/{salary}/resend-email', [SalaryController::class, 'resendEmail'])->name('salary.resend-email');
+            Route::resource('salary', SalaryController::class);
         });
 });
 

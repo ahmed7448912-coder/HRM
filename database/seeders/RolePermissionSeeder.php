@@ -17,32 +17,32 @@ class RolePermissionSeeder extends Seeder
 
         // PERMISSIONS
 
-        Permission::create(['name' => 'employee.view']);
-        Permission::create(['name' => 'employee.create']);
-        Permission::create(['name' => 'employee.edit']);
-        Permission::create(['name' => 'employee.delete']);
+        Permission::firstOrCreate(['name' => 'employee.view']);
+        Permission::firstOrCreate(['name' => 'employee.create']);
+        Permission::firstOrCreate(['name' => 'employee.edit']);
+        Permission::firstOrCreate(['name' => 'employee.delete']);
 
-        Permission::create(['name' => 'attendance.view']);
-        Permission::create(['name' => 'attendance.manage']);
+        Permission::firstOrCreate(['name' => 'attendance.view']);
+        Permission::firstOrCreate(['name' => 'attendance.manage']);
 
-        Permission::create(['name' => 'leave.view']);
-        Permission::create(['name' => 'leave.manage']);
-        Permission::create(['name' => 'leave.approve']);
+        Permission::firstOrCreate(['name' => 'leave.view']);
+        Permission::firstOrCreate(['name' => 'leave.manage']);
+        Permission::firstOrCreate(['name' => 'leave.approve']);
 
-        Permission::create(['name' => 'payroll.view']);
-        Permission::create(['name' => 'payroll.manage']);
+        Permission::firstOrCreate(['name' => 'payroll.view']);
+        Permission::firstOrCreate(['name' => 'payroll.manage']);
 
-        Permission::create(['name' => 'reports.view']);
+        Permission::firstOrCreate(['name' => 'reports.view']);
 
 
 
         // ROLES
 
-        $admin = Role::create(['name' => 'Admin']);
+        $admin = Role::firstOrCreate(['name' => 'Admin']);
 
-        $hr = Role::create(['name' => 'HR']);
+        $hr = Role::firstOrCreate(['name' => 'HR']);
 
-        $employee = Role::create(['name' => 'Employee']);
+        $employee = Role::firstOrCreate(['name' => 'Employee']);
 
 
 

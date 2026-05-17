@@ -103,6 +103,12 @@
                         <span>User Approvals</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('roles.index') }}" class="nav-link {{ request()->routeIs('roles.*') ? 'active' : '' }}">
+                        <i class="bi bi-person-lines-fill"></i>
+                        <span>Roles & Permissions</span>
+                    </a>
+                </li>
                 @endrole
 
             </ul>
