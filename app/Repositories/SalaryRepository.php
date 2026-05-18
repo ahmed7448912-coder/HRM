@@ -108,6 +108,7 @@ class SalaryRepository
         $transactions = SalaryTransaction::with('salary.employee')->select('salary_transactions.*');
 
         return DataTables::of($transactions)
+            ->addIndexColumn()
             ->addColumn('employee', fn($row) => $row->salary->employee->name ?? '-')
             ->addColumn('month', fn($row) => $row->salary->month ?? '-')
             ->editColumn('amount', fn($row) => '<span class="text-success fw-bold">$' . number_format($row->amount, 2) . '</span>')
