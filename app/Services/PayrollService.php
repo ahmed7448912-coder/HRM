@@ -7,6 +7,7 @@ use App\Models\Attendance;
 use App\Models\Employees;
 use App\Models\Leave;
 use App\Models\Payroll;
+use App\Models\Salary;
 use Yajra\DataTables\Facades\DataTables;
 
 class PayrollService
@@ -75,6 +76,18 @@ class PayrollService
             $data
         );
 
+        // Automatically create or update the Salary payment record for this payroll
+        Salary::updateOrCreate(
+            [
+                'employee_id' => $employeeId,
+                'month'       => date('Y-m', strtotime($data['month'])),
+            ],
+            [
+                'amount' => $data['net_salary'],
+                'status' => 'unpaid',
+            ]
+        );
+
         //  dispatch email job
         dispatch(new SendPayrollMailJob($payroll));
 
@@ -94,6 +107,16 @@ class PayrollService
         $net_salary = $data['basic_salary'] - $data['deductions'] + $data['bonus'];
         $data['net_salary'] = $net_salary;
 
-        return $payroll->update($data);
+        $updated = $payroll->update($data);
+
+        if ($updated) {
+            // Also update the Salary record if it exists and is unpaid
+            Salary::where('employee_id', $payroll->employee_id)
+                ->where('month', date('Y-m', strtotime($payroll->month)))
+                ->where('status', 'unpaid')
+                ->update(['amount' => $net_salary]);
+        }
+
+        return $updated;
     }
 }

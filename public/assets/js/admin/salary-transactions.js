@@ -12,6 +12,7 @@ $(function () {
             { data: 'status',         name: 'status' },
             { data: 'transaction_id', name: 'transaction_id', orderable: false },
             { data: 'created_at',     name: 'created_at' },
+            { data: 'actions',        name: 'actions',        orderable: false, searchable: false },
         ],
         pageLength: 15,
         order: [[7, 'desc']],

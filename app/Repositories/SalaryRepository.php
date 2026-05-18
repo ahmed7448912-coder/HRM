@@ -122,7 +122,16 @@ class SalaryRepository
             })
             ->editColumn('transaction_id', fn($row) => '<span class="font-monospace small text-muted">' . $row->transaction_id . '</span>')
             ->editColumn('created_at', fn($row) => $row->created_at->format('d M Y, h:i A'))
-            ->rawColumns(['amount', 'payment_method', 'status', 'transaction_id'])
+            ->addColumn('actions', function($row) {
+                return '<form action="'.route('salary.transactions.destroy', $row->id).'" method="POST" class="d-inline" onsubmit="return confirm(\'Are you sure you want to delete this transaction log?\');">
+                            '.csrf_field().'
+                            '.method_field('DELETE').'
+                            <button type="submit" class="btn btn-sm btn-outline-danger rounded-3 px-2 shadow-sm" title="Delete Transaction Log">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>';
+            })
+            ->rawColumns(['amount', 'payment_method', 'status', 'transaction_id', 'actions'])
             ->make(true);
     }
 }

@@ -49,6 +49,7 @@
                                 <th>Status</th>
                                 <th>Transaction ID</th>
                                 <th>Date</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                     </table>

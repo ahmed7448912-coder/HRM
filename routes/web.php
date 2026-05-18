@@ -88,9 +88,12 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->group(function () {
     Route::middleware(['auth', 'permission:salary.view'])
         ->group(function () {
             Route::get('salary/transactions', [SalaryController::class, 'transactions'])->name('salary.transactions');
+            Route::delete('salary/transactions/{transaction}', [SalaryController::class, 'destroyTransaction'])->name('salary.transactions.destroy');
             Route::get('salary/{salary}/pay', [SalaryController::class, 'pay'])->name('salary.pay');
             Route::post('salary/{salary}/process', [SalaryController::class, 'process'])->name('salary.process');
+            Route::post('salary/{salary}/confirm-payment', [SalaryController::class, 'confirmPayment'])->name('salary.confirm-payment');
             Route::post('salary/{salary}/resend-email', [SalaryController::class, 'resendEmail'])->name('salary.resend-email');
+            Route::post('salary/{salary}/cancel', [SalaryController::class, 'cancel'])->name('salary.cancel');
             Route::resource('salary', SalaryController::class);
         });
 });

@@ -35,20 +35,66 @@ class SalaryService
             'return_url' => route('salary.index'),
         ]);
 
+        $status = 'failed';
+        if ($intent->status === 'succeeded') {
+            $status = 'success';
+        } elseif ($intent->status === 'requires_action') {
+            $status = 'pending';
+        }
+
         $transaction = $this->repo->saveTransaction([
             'salary_id'       => $salary->id,
             'transaction_id'  => $intent->id,
             'amount'          => $salary->amount,
             'currency'        => 'usd',
             'payment_method'  => 'stripe',
-            'status'          => $intent->status === 'succeeded' ? 'success' : 'failed',
+            'status'          => $status,
             'stripe_response' => $intent->toArray(),
             'email_sent_to'   => $salary->employee->email ?? null,
         ]);
 
-        $this->repo->markAsPaid($salary, $intent->id);
+        if ($status === 'success') {
+            $this->repo->markAsPaid($salary, $intent->id);
+            SendSalaryReceiptJob::dispatch($salary, $transaction);
+        }
 
-        // Email is now handled by SendSalaryReceiptJob — not here
+        return $transaction;
+    }
+
+    public function confirmSalaryPayment(Salary $salary, string $paymentIntentId): SalaryTransaction
+    {
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $intent = PaymentIntent::retrieve($paymentIntentId);
+
+        if ($intent->status !== 'succeeded') {
+            throw new \Exception("Stripe payment intent was not successfully completed. Current status: " . $intent->status);
+        }
+
+        // Find existing transaction or save new
+        $transaction = SalaryTransaction::where('transaction_id', $paymentIntentId)->first();
+
+        if ($transaction) {
+            $transaction->update([
+                'status'          => 'success',
+                'stripe_response' => $intent->toArray(),
+            ]);
+        } else {
+            $transaction = $this->repo->saveTransaction([
+                'salary_id'       => $salary->id,
+                'transaction_id'  => $intent->id,
+                'amount'          => $salary->amount,
+                'currency'        => 'usd',
+                'payment_method'  => 'stripe',
+                'status'          => 'success',
+                'stripe_response' => $intent->toArray(),
+                'email_sent_to'   => $salary->employee->email ?? null,
+            ]);
+        }
+
+        $this->repo->markAsPaid($salary, $intent->id);
+        SendSalaryReceiptJob::dispatch($salary, $transaction);
+
         return $transaction;
     }
 
