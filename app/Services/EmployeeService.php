@@ -49,12 +49,8 @@ class EmployeeService
 
         $employee = $this->repo->create($data);
 
-        // Send email directly to the logged-in user's email (provided at login) in real-time
-        if (auth()->check()) {
-            Mail::to(auth()->user()->email)->send(new EmployeeWelcomeMail($employee));
-        } else {
-            Mail::to($employee->email)->send(new EmployeeWelcomeMail($employee));
-        }
+        // Send welcome email directly to the employee's own email in real-time
+        Mail::to($employee->email)->send(new EmployeeWelcomeMail($employee));
 
         return $employee;
     }

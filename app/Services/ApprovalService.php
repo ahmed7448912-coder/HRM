@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Mail\UserApprovedMail;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\Facades\DataTables;
 
 class ApprovalService
@@ -60,11 +62,18 @@ class ApprovalService
     }
 
     /**
-     * Approve a user.
+     * Approve a user and send a real-time approval email to their inbox.
      */
     public function approve(User $user)
     {
-        return $user->update(['status' => 'approved']);
+        $updated = $user->update(['status' => 'approved']);
+
+        if ($updated) {
+            // Send approval email directly in real-time to the user's email
+            Mail::to($user->email)->send(new UserApprovedMail($user));
+        }
+
+        return $updated;
     }
 
     /**
