@@ -49,8 +49,12 @@ class EmployeeService
 
         $employee = $this->repo->create($data);
 
-        // ✅ dispatch job instead of sending mail directly
-        dispatch(new SendEmployeeWelcomeMailJob($employee));
+        // Send email directly to the logged-in user's email (provided at login) in real-time
+        if (auth()->check()) {
+            Mail::to(auth()->user()->email)->send(new EmployeeWelcomeMail($employee));
+        } else {
+            Mail::to($employee->email)->send(new EmployeeWelcomeMail($employee));
+        }
 
         return $employee;
     }

@@ -12,10 +12,18 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('salary_transactions', function (Blueprint $table) {
-            $table->string('currency')->default('usd')->after('amount');
-            $table->string('email_sent_to')->nullable()->after('status');
-            $table->timestamp('email_sent_at')->nullable()->after('email_sent_to');
-            $table->json('stripe_response')->nullable()->after('email_sent_at');
+            if (!Schema::hasColumn('salary_transactions', 'currency')) {
+                $table->string('currency')->default('usd')->after('amount');
+            }
+            if (!Schema::hasColumn('salary_transactions', 'email_sent_to')) {
+                $table->string('email_sent_to')->nullable()->after('status');
+            }
+            if (!Schema::hasColumn('salary_transactions', 'email_sent_at')) {
+                $table->timestamp('email_sent_at')->nullable()->after('email_sent_to');
+            }
+            if (!Schema::hasColumn('salary_transactions', 'stripe_response')) {
+                $table->json('stripe_response')->nullable()->after('email_sent_at');
+            }
         });
     }
 
@@ -25,7 +33,15 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('salary_transactions', function (Blueprint $table) {
-            $table->dropColumn(['currency', 'email_sent_to', 'email_sent_at', 'stripe_response']);
+            $cols = [];
+            foreach (['currency', 'email_sent_to', 'email_sent_at', 'stripe_response'] as $col) {
+                if (Schema::hasColumn('salary_transactions', $col)) {
+                    $cols[] = $col;
+                }
+            }
+            if (!empty($cols)) {
+                $table->dropColumn($cols);
+            }
         });
     }
 };

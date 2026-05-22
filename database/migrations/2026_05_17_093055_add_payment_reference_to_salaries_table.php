@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('salaries', function (Blueprint $table) {
-            $table->string('payment_reference')->nullable()->after('paid_at');
-        });
+        if (!Schema::hasColumn('salaries', 'payment_reference')) {
+            Schema::table('salaries', function (Blueprint $table) {
+                $table->string('payment_reference')->nullable()->after('paid_at');
+            });
+        }
     }
 
     /**
@@ -21,8 +23,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('salaries', function (Blueprint $table) {
-            $table->dropColumn('payment_reference');
-        });
+        if (Schema::hasColumn('salaries', 'payment_reference')) {
+            Schema::table('salaries', function (Blueprint $table) {
+                $table->dropColumn('payment_reference');
+            });
+        }
     }
 };
