@@ -20,6 +20,11 @@ class AttendanceObserver
         $status       = $attendance->status ?? 'present';
 
         Log::info("Attendance CREATED — {$employeeName} | Date: {$attendance->date} | Status: {$status} | Check-in: {$attendance->check_in}");
+
+        // Check for late arrival on initial creation if check_in is provided
+        if ($attendance->check_in) {
+            $this->checkLateArrival($attendance, $employeeName);
+        }
     }
 
     /**
@@ -41,20 +46,33 @@ class AttendanceObserver
             Log::info("Attendance STATUS CHANGED — {$employeeName} | Date: {$attendance->date} | {$old} → {$new}");
         }
 
-        // Detect late check-in: if check_in was just set and is after 09:00
+        // Detect late check-in: if check_in was just set/changed and is after 09:00
         if ($attendance->isDirty('check_in') && $attendance->check_in) {
-            $checkInTime  = \Carbon\Carbon::createFromFormat('H:i:s', $attendance->check_in);
-            $workStartTime = \Carbon\Carbon::createFromFormat('H:i:s', '09:00:00');
-
-            if ($checkInTime->gt($workStartTime)) {
-                $minutesLate = $checkInTime->diffInMinutes($workStartTime);
-                Log::warning("LATE ARRIVAL — {$employeeName} | Date: {$attendance->date} | Check-in: {$attendance->check_in} | {$minutesLate} minutes late.");
-            }
+            $this->checkLateArrival($attendance, $employeeName);
         }
 
         // Log check-out time when it is recorded
         if ($attendance->isDirty('check_out') && $attendance->check_out) {
             Log::info("Check-out recorded — {$employeeName} | Date: {$attendance->date} | Check-out: {$attendance->check_out}");
+        }
+    }
+
+    /**
+     * Check if the check-in is after 09:00 AM and log a warning.
+     */
+    protected function checkLateArrival(Attendance $attendance, string $employeeName): void
+    {
+        try {
+            // Carbon::parse handles different formats like '10:00' or '10:00:00' dynamically.
+            $checkInTime   = \Carbon\Carbon::parse($attendance->check_in);
+            $workStartTime = \Carbon\Carbon::parse('09:00:00');
+
+            if ($checkInTime->gt($workStartTime)) {
+                $minutesLate = $checkInTime->diffInMinutes($workStartTime);
+                Log::warning("LATE ARRIVAL — {$employeeName} | Date: {$attendance->date} | Check-in: {$attendance->check_in} | {$minutesLate} minutes late.");
+            }
+        } catch (\Exception $e) {
+            Log::error("Failed to parse check-in time: {$attendance->check_in} for {$employeeName}. Error: " . $e->getMessage());
         }
     }
 
